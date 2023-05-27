@@ -1,0 +1,40 @@
+Go|0|Go
+Old Kent Road|60|Brown
+Community Chest|0|Community Chest
+Whitechapel Road|60|Brown
+Income Tax|200|Tax
+King's Cross Station|200|Station
+The Angel Islington|100|Light Blue
+Chance|0|Chance
+Euston Road|100|Light Blue
+Pentonville Road|120|Light Blue
+Jail|0|Jail
+Pall Mall|140|Pink
+Electric Company|150|Utility
+Whitehall|140|Pink
+Northumberland Avenue|160|Pink
+Marylebone Station|200|Station
+Bow Street|180|Orange
+Community Chest|0|Community Chest
+Marlborough Street|180|Orange
+Vine Street|200|Orange
+Free Parking|0|Free Parking
+The Strand|220|Red
+Chance|0|Chance
+Fleet Street|220|Red
+Trafalgar Square|240|Red
+Frenchurch St Station|200|Station
+Leicester Square|260|Yellow
+Coventry Street|260|Yellow
+Water Works|150|Utility
+Piccadilly|280|Yellow
+Go to Jail|0|Go to Jail
+Regent Street|300|Green
+Oxford Street|300|Green
+Community Chest|0|Community Chest
+Bond Street|320|Green
+Liverpool Street Station|200|Station
+Chance|0|Chance
+Park Lane|350|Dark Blue
+Super Tax|100|Tax
+Mayfair|400|Dark Blue
