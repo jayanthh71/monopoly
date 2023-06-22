@@ -1,0 +1,15 @@
+c|give|50|Speeding fine $50
+c|give|150|Pay $150
+c|get|30|Collect $30
+c|get|100|Bank pays you $100
+c|giveall|50|Pay each player $50
+c|move|go|Advance to Go.
+cc|give|150|Doctor’s fee. Pay $150
+cc|give|50|Pay hospital fees of $50
+cc|give|20|Pay $20
+cc|give|200|Pay school fees of $200
+cc|get|70|Recieve $70
+cc|get|150|You inherit $150
+cc|get|100|Collect $100
+cc|get|50|Recieve $50
+cc|move|go|Advance to Go.
