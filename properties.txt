@@ -1,40 +1,40 @@
-Go|0|Go
-Old Kent Road|60|Brown
-Community Chest|0|Community Chest
-Whitechapel Road|60|Brown
-Income Tax|200|Tax
-King's Cross Station|200|Station
-The Angel Islington|100|Light Blue
-Chance|0|Chance
-Euston Road|100|Light Blue
-Pentonville Road|120|Light Blue
-Jail|0|Jail
-Pall Mall|140|Pink
-Electric Company|150|Utility
-Whitehall|140|Pink
-Northumberland Avenue|160|Pink
-Marylebone Station|200|Station
-Bow Street|180|Orange
-Community Chest|0|Community Chest
-Marlborough Street|180|Orange
-Vine Street|200|Orange
-Free Parking|0|Free Parking
-The Strand|220|Red
-Chance|0|Chance
-Fleet Street|220|Red
-Trafalgar Square|240|Red
-Frenchurch St Station|200|Station
-Leicester Square|260|Yellow
-Coventry Street|260|Yellow
-Water Works|150|Utility
-Piccadilly|280|Yellow
-Go to Jail|0|Go to Jail
-Regent Street|300|Green
-Oxford Street|300|Green
-Community Chest|0|Community Chest
-Bond Street|320|Green
-Liverpool Street Station|200|Station
-Chance|0|Chance
-Park Lane|350|Dark Blue
-Super Tax|100|Tax
-Mayfair|400|Dark Blue
+Go|0|Go|(675, 675)
+Old Kent Road|60|Brown|(597, 675)
+Community Chest|0|Community Chest|(540, 675)
+Whitechapel Road|60|Brown|(480, 675)
+Income Tax|200|Tax|(420, 675)
+King's Cross Station|200|Station|(362, 675)
+The Angel Islington|100|Light Blue|(302, 675)
+Chance|0|Chance|(245, 675)
+Euston Road|100|Light Blue|(185, 675)
+Pentonville Road|120|Light Blue|(126, 675)
+Jail|0|Jail|(35, 690)
+Pall Mall|140|Pink|(45, 595)
+Electric Company|150|Utility|(45, 536)
+Whitehall|140|Pink|(45, 478)
+Northumberland Avenue|160|Pink|(45, 420)
+Marylebone Station|200|Station|(45, 360)
+Bow Street|180|Orange|(45, 300)
+Community Chest|0|Community Chest|(45, 242)
+Marlborough Street|180|Orange|(45, 184)
+Vine Street|200|Orange|(45, 125)
+Free Parking|0|Free Parking|(45, 40)
+The Strand|220|Red|(126, 40)
+Chance|0|Chance|(185, 40)
+Fleet Street|220|Red|(245, 40)
+Trafalgar Square|240|Red|(302, 40)
+Frenchurch St Station|200|Station|(362, 40)
+Leicester Square|260|Yellow|(420, 40)
+Coventry Street|260|Yellow|(480, 40)
+Water Works|150|Utility|(540, 40)
+Piccadilly|280|Yellow|(597, 40)
+Go to Jail|0|Go to Jail|(675, 40)
+Regent Street|300|Green|(683, 125)
+Oxford Street|300|Green|(683, 184)
+Community Chest|0|Community Chest|(683, 242)
+Bond Street|320|Green|(683, 300)
+Liverpool Street Station|200|Station|(683, 360)
+Chance|0|Chance|(683, 420)
+Park Lane|350|Dark Blue|(683, 478)
+Super Tax|100|Tax|(683, 536)
+Mayfair|400|Dark Blue|(683, 595)
