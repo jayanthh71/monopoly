@@ -1,4 +1,5 @@
 import tkinter as tk  # To create Graphical User Interface
+from tkinter import ttk
 import tkextrafont  # To use custom fonts
 import random  # For dice rolling
 import csv  # To read csv files
@@ -61,10 +62,10 @@ class Monopoly:
 
         # Creating token list
         self.tokens = [
-            r"textures\hat_token.png",
-            r"textures\car_token.png",
-            r"textures\ship_token.png",
-            r"textures\dog_token.png",
+            r"textures\hat-token.png",
+            r"textures\car-token.png",
+            r"textures\ship-token.png",
+            r"textures\dog-token.png",
         ]
         self.display_tokens = [
             r"textures\hat.png",
@@ -80,13 +81,18 @@ class Monopoly:
         self.player_4 = Player()
 
         # Show title screen
-        self.title_screen = tk.Frame(self.root, background="#AAAAAA")
+        self.title_screen = tk.Frame(self.root, bg="#2A363B")
         self.title_screen.pack(fill="both", expand=True)
 
-        # Creating elements on title screen
+        # Importing neccesary images
+        self.button_image = ImageTk.PhotoImage(file=r"textures\button.png")
         title_image = ImageTk.PhotoImage(file=r"textures\title.png")
+        right_image = ImageTk.PhotoImage(file=r"textures\right-arrow.png")
+        left_image = ImageTk.PhotoImage(file=r"textures\left-arrow.png")
+
+        # Creating elements on title screen
         title = tk.Label(
-            self.title_screen, image=title_image, borderwidth=0, bg="#AAAAAA"
+            self.title_screen, image=title_image, borderwidth=0, bg="#2A363B"
         )
         title.place(relx=0.5, y=50, anchor="n")
         player_select = tk.Label(
@@ -94,23 +100,22 @@ class Monopoly:
             borderwidth=0,
             font=self.big_font,
             text="Player Select",
-            bg="#AAAAAA",
+            bg="#2A363B",
+            fg="white",
         )
         player_select.place(x=532, y=162.5, width=216, height=53, anchor="nw")
         start_button = tk.Button(
             self.title_screen,
             borderwidth=0,
-            text="Start Game",
+            text="START",
             font=self.font,
-            bg="#C70000",
-            activebackground="#770000",
+            compound="center",
+            image=self.button_image,
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=self.start_game,
         )
-        start_button.place(relx=0.5, y=670, width=166, height=60, anchor="s")
-
-        # Creating arrow images
-        right_image = ImageTk.PhotoImage(file=r"textures\right-arrow.png")
-        left_image = ImageTk.PhotoImage(file=r"textures\left-arrow.png")
+        start_button.place(relx=0.5, y=670, width=170, height=62, anchor="s")
 
         # Getting player choices
         self.player_1_index = 0
@@ -119,7 +124,7 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=self.player_1_image,
-            bg="#AAAAAA",
+            bg="#2A363B",
         )
         self.player_1_image_label.place(x=188, y=393.5, anchor="nw")
         self.player_1_entry = tk.Entry(
@@ -153,8 +158,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=left_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.prev_token(1),
         )
         player_1_left.place(x=140, y=441.5, anchor="nw")
@@ -162,8 +167,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=right_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.next_token(1),
         )
         player_1_right.place(x=332, y=441.5, anchor="nw")
@@ -174,7 +179,7 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=self.player_2_image,
-            bg="#AAAAAA",
+            bg="#2A363B",
         )
         self.player_2_image_label.place(x=444, y=393.5, anchor="nw")
         self.player_2_entry = tk.Entry(
@@ -208,8 +213,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=left_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.prev_token(2),
         )
         player_2_left.place(x=396, y=441.5, anchor="nw")
@@ -217,8 +222,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=right_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.next_token(2),
         )
         player_2_right.place(x=588, y=441.5, anchor="nw")
@@ -229,7 +234,7 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=self.player_3_image,
-            bg="#AAAAAA",
+            bg="#2A363B",
         )
         self.player_3_image_label.place(x=708, y=393.5, anchor="nw")
         self.player_3_entry = tk.Entry(
@@ -263,8 +268,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=left_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.prev_token(3),
         )
         player_3_left.place(x=660, y=441.5, anchor="nw")
@@ -272,8 +277,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=right_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.next_token(3),
         )
         player_3_right.place(x=852, y=441.5, anchor="nw")
@@ -284,7 +289,7 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=self.player_4_image,
-            bg="#AAAAAA",
+            bg="#2A363B",
         )
         self.player_4_image_label.place(x=964, y=393.5, anchor="nw")
         self.player_4_entry = tk.Entry(
@@ -320,8 +325,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=left_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.prev_token(4),
         )
         player_4_left.place(x=916, y=441.5, anchor="nw")
@@ -329,8 +334,8 @@ class Monopoly:
             self.title_screen,
             borderwidth=0,
             image=right_image,
-            bg="#AAAAAA",
-            activebackground="#AAAAAA",
+            bg="#2A363B",
+            activebackground="#2A363B",
             command=lambda: self.next_token(4),
         )
         player_4_right.place(x=1108, y=441.5, anchor="nw")
@@ -404,39 +409,41 @@ class Monopoly:
         self.title_screen.destroy()
 
         # Creating game screen
-        self.screen = tk.Frame(self.root, background="#D7BAAA")
+        self.screen = tk.Frame(self.root, background="black")
         self.screen.pack(fill="both", expand=True)
 
         # Importing and placing the board
         board_image = ImageTk.PhotoImage(file=r"textures\board.png")
-        self.board = tk.Canvas(self.screen, borderwidth=0)
-        self.board.place(width=720, height=720, rely=0.5, anchor="w")
+        self.board = tk.Canvas(self.screen, borderwidth=0, highlightthickness=0)
+        self.board.place(width=720, height=717, anchor="nw")
         self.board.create_image(0, 0, image=board_image, anchor="nw")
         button_background_image = ImageTk.PhotoImage(
-            Image.new("RGB", (560, 720), "#D7BAAA")
+            Image.new("RGB", (560, 720), "#CA7264")
         )
         button_background = tk.Label(
-            self.screen, image=button_background_image, borderwidth=0
+            self.screen,
+            image=button_background_image,
+            borderwidth=0,
         )
         button_background.place(relx=1, rely=0, anchor="ne")
 
-        # Loading close button and dice roll image
+        # Loading some images
         self.close_player_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
         self.dice_image = ImageTk.PhotoImage(file=r"textures\dice.png")
 
         # Loading dice images
-        self.dice_1_image = ImageTk.PhotoImage(file=r"textures\dice_1.png")
-        self.dice_2_image = ImageTk.PhotoImage(file=r"textures\dice_2.png")
-        self.dice_3_image = ImageTk.PhotoImage(file=r"textures\dice_3.png")
-        self.dice_4_image = ImageTk.PhotoImage(file=r"textures\dice_4.png")
-        self.dice_5_image = ImageTk.PhotoImage(file=r"textures\dice_5.png")
-        self.dice_6_image = ImageTk.PhotoImage(file=r"textures\dice_6.png")
+        self.dice_1_image = ImageTk.PhotoImage(file=r"textures\dice-1.png")
+        self.dice_2_image = ImageTk.PhotoImage(file=r"textures\dice-2.png")
+        self.dice_3_image = ImageTk.PhotoImage(file=r"textures\dice-3.png")
+        self.dice_4_image = ImageTk.PhotoImage(file=r"textures\dice-4.png")
+        self.dice_5_image = ImageTk.PhotoImage(file=r"textures\dice-5.png")
+        self.dice_6_image = ImageTk.PhotoImage(file=r"textures\dice-6.png")
 
         # Creating card instances and assigning unique values
         self.chance_list = list()
         self.chest_list = list()
         with open(r"cards.csv", newline="") as file:
-            for card_info in csv.reader(file, delimiter="|"):
+            for card_info in csv.reader(file):
                 card_instance = Card()
                 card_instance.type = card_info[0]
                 card_instance.function = card_info[1]
@@ -454,7 +461,7 @@ class Monopoly:
         self.property_locations = dict()
         property_locations_list = itertools.cycle(range(1, 41))
         with open(r"properties.csv", newline="") as file:
-            for property_info in csv.reader(file, delimiter="|"):
+            for property_info in csv.reader(file):
                 property_instance = Property()
                 self.property_locations[
                     next(property_locations_list)
@@ -487,24 +494,26 @@ class Monopoly:
             self.screen,
             image=self.player_1.token_display_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         p1_token_display.place(x=804, y=20, anchor="nw")
         p1_button = tk.Button(
             self.screen,
             text=self.player_1.name,
             font=self.font,
-            bg="#C70000",
-            activebackground="#770000",
+            compound="center",
+            image=self.button_image,
+            bg="#CA7264",
+            activebackground="#CA7264",
             borderwidth=0,
             command=lambda: self.display_player_info(self.player_1),
         )
-        p1_button.place(width=166, height=60, x=786, y=140, anchor="nw")
+        p1_button.place(width=170, height=62, x=786, y=140, anchor="nw")
         player_1_money_token = tk.Label(
             self.screen,
             image=self.player_1.token_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         player_1_money_token.place(x=775, y=500, anchor="nw")
         self.player_1_money = tk.Label(
@@ -512,7 +521,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.font,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         self.player_1_money.place(x=830, y=508, anchor="nw")
 
@@ -520,24 +529,26 @@ class Monopoly:
             self.screen,
             image=self.player_2.token_display_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         p2_token_display.place(x=1080, y=17, anchor="nw")
         p2_button = tk.Button(
             self.screen,
             text=self.player_2.name,
             font=self.font,
-            bg="#C70000",
-            activebackground="#770000",
+            compound="center",
+            image=self.button_image,
+            bg="#CA7264",
+            activebackground="#CA7264",
             borderwidth=0,
             command=lambda: self.display_player_info(self.player_2),
         )
-        p2_button.place(width=166, height=60, x=1224, y=140, anchor="ne")
+        p2_button.place(width=170, height=62, x=1224, y=140, anchor="ne")
         player_2_money_token = tk.Label(
             self.screen,
             image=self.player_2.token_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         player_2_money_token.place(x=775, y=548, anchor="nw")
         self.player_2_money = tk.Label(
@@ -545,7 +556,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.font,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         self.player_2_money.place(x=830, y=556, anchor="nw")
 
@@ -553,24 +564,26 @@ class Monopoly:
             self.screen,
             image=self.player_3.token_display_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         p3_token_display.place(x=804, y=222, anchor="nw")
         p3_button = tk.Button(
             self.screen,
             text=self.player_3.name,
             font=self.font,
-            bg="#C70000",
-            activebackground="#770000",
+            compound="center",
+            image=self.button_image,
+            bg="#CA7264",
+            activebackground="#CA7264",
             borderwidth=0,
             command=lambda: self.display_player_info(self.player_3),
         )
-        p3_button.place(width=166, height=60, x=786, y=350, anchor="nw")
+        p3_button.place(width=170, height=62, x=786, y=350, anchor="nw")
         player_3_money_token = tk.Label(
             self.screen,
             image=self.player_3.token_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         player_3_money_token.place(x=775, y=596, anchor="nw")
         self.player_3_money = tk.Label(
@@ -578,7 +591,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.font,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         self.player_3_money.place(x=830, y=604, anchor="nw")
 
@@ -586,24 +599,26 @@ class Monopoly:
             self.screen,
             image=self.player_4.token_display_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         p4_token_display.place(x=1076, y=230, anchor="nw")
         p4_button = tk.Button(
             self.screen,
             text=self.player_4.name,
             font=self.font,
-            bg="#C70000",
-            activebackground="#770000",
+            compound="center",
+            image=self.button_image,
+            bg="#CA7264",
+            activebackground="#CA7264",
             borderwidth=0,
             command=lambda: self.display_player_info(self.player_4),
         )
-        p4_button.place(width=166, height=60, x=1224, y=350, anchor="ne")
+        p4_button.place(width=170, height=62, x=1224, y=350, anchor="ne")
         player_4_money_token = tk.Label(
             self.screen,
             image=self.player_4.token_image,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         player_4_money_token.place(x=775, y=644, anchor="nw")
         self.player_4_money = tk.Label(
@@ -611,7 +626,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.font,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         self.player_4_money.place(x=830, y=652, anchor="nw")
 
@@ -648,7 +663,7 @@ class Monopoly:
             text=player_info_text,
             borderwidth=0,
             font=self.small_font,
-            bg="#9FB5A2",
+            bg="#B9CEB5",
         )
         player_info.place(height=280, width=250, x=360, y=360, anchor="center")
 
@@ -657,8 +672,8 @@ class Monopoly:
             self.screen,
             borderwidth=0,
             image=self.close_player_button_image,
-            bg="#9FB5A2",
-            activebackground="#9FB5A2",
+            bg="#B9CEB5",
+            activebackground="#B9CEB5",
             command=lambda: (
                 player_info.destroy(),
                 close_player_button.destroy(),
@@ -675,10 +690,10 @@ class Monopoly:
             text=f"{self.current_player.name}'s Turn",
             font=self.big_font,
             borderwidth=0,
-            bg="#D7BAAA",
+            bg="#CA7264",
         )
         current_player_display.place(
-            width=300, height=60, x=1000, y=450, anchor="center"
+            width=560, height=60, x=1000, y=460, anchor="center"
         )
 
         # Setting up dice and end turn button for current player
@@ -686,15 +701,15 @@ class Monopoly:
             self.screen,
             image=self.dice_image,
             borderwidth=0,
-            activebackground="#C70000",
-            bg="#C70000",
+            bg="#CA7264",
+            activebackground="#CA7264",
             command=lambda: (
                 self.end_turn_display(),
                 self.player_turn(),
                 dice_button.destroy(),
             ),
         )
-        dice_button.place(x=1152, y=602, anchor="nw")
+        dice_button.place(x=1032, y=532, anchor="nw")
 
     def end_turn_display(self):
         self.end_turn_button = tk.Button(
@@ -702,11 +717,13 @@ class Monopoly:
             text="END TURN",
             font=self.font,
             borderwidth=0,
-            activebackground="#770000",
-            bg="#C70000",
+            compound="center",
+            image=self.button_image,
+            bg="#CA7264",
+            activebackground="#CA7264",
             command=lambda: (self.end_turn_func(), self.end_turn_button.destroy()),
         )
-        self.end_turn_button.place(width=156, height=66, x=980, y=622, anchor="nw")
+        self.end_turn_button.place(width=170, height=62, x=1012, y=615, anchor="nw")
 
     def dice_display(self, dice_1, dice_2):
         # Displayng dice images based on result
@@ -822,10 +839,12 @@ class Monopoly:
                 # Displays property buying choice if player lands on property
                 self.property_choice_display = tk.Button(
                     self.screen,
-                    text=f"BUY? (${self.current_player_location_property.price})",
-                    bg="#C70000",
+                    text=f"BUY: ${self.current_player_location_property.price}",
+                    compound="center",
+                    image=self.button_image,
+                    bg="#CA7264",
+                    activebackground="#CA7264",
                     borderwidth=0,
-                    activebackground="#770000",
                     font=self.font,
                     command=lambda: (
                         self.buy_property(),
@@ -833,7 +852,7 @@ class Monopoly:
                     ),
                 )
                 self.property_choice_display.place(
-                    width=180, height=66, x=980, y=522, anchor="nw"
+                    width=170, height=62, x=1012, y=515, anchor="nw"
                 )
             elif self.current_player_location_property.colour == "Utility":
                 if (
@@ -858,17 +877,19 @@ class Monopoly:
             self.current_player.location = 11
             fine_display = tk.Button(
                 self.screen,
-                text=f"FINE ($50)",
-                bg="#C70000",
+                text=f"FINE: $50",
+                compound="center",
+                image=self.button_image,
+                bg="#CA7264",
+                activebackground="#CA7264",
                 borderwidth=0,
-                activebackground="#770000",
                 font=self.font,
                 command=lambda: (
                     self.pay_fine(),
                     fine_display.destroy(),
                 ),
             )
-            fine_display.place(width=180, height=66, x=980, y=522, anchor="nw")
+            fine_display.place(width=170, height=62, x=1012, y=515, anchor="nw")
             self.action_display = tk.Label(
                 self.screen,
                 text=f"{self.current_player.name} has gone to Jail",
@@ -1096,7 +1117,7 @@ class Monopoly:
                 text=card_text,
                 font=self.small_font,
                 borderwidth=0,
-                bg="#9FB5A2",
+                bg="#B9CEB5",
             )
             self.card_display.place(height=160, width=250, x=360, y=500, anchor="s")
 
@@ -1123,7 +1144,7 @@ class Monopoly:
             for player in final_player_list:
                 money = player.money
                 for title in player.properties:
-                    money += title.rent
+                    money += title.price
                 player.money = money
                 final_player_money_list.append(player.money)
             winner = final_player_list[
@@ -1139,7 +1160,7 @@ class Monopoly:
                 text=end_text,
                 borderwidth=0,
                 font=self.small_font,
-                bg="#9FB5A2",
+                bg="#B9CEB5",
             )
             end_screen.place(height=280, width=250, x=360, y=360, anchor="center")
             return True
