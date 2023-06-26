@@ -1,5 +1,4 @@
 import tkinter as tk  # To create Graphical User Interface
-from tkinter import ttk
 import tkextrafont  # To use custom fonts
 import random  # For dice rolling
 import csv  # To read csv files
