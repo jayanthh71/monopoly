@@ -951,37 +951,25 @@ class Monopoly:
             for title in self.current_player_location_property.owned_by.properties:
                 if title.colour == set_colour:
                     set_number += 1
-            if set_colour in [
-                "Light Blue",
-                "Pink",
-                "Orange",
-                "Red",
-                "Yellow",
-                "Green",
-            ]:
+            if set_colour == "Station":
                 match set_number:
                     case 1:
-                        rent = self.current_player_location_property.price // 10
-                    case 2:
-                        rent = 2 * (self.current_player_location_property.price // 10)
-                    case 3:
-                        rent = 4 * (self.current_player_location_property.price // 10)
-            elif set_colour in ["Brown", "Dark Blue"]:
-                match set_number:
-                    case 1:
-                        rent = self.current_player_location_property.price // 10
-                    case 2:
-                        rent = 3 * (self.current_player_location_property.price // 10)
-            elif set_colour == "Station":
-                match set_number:
-                    case 1:
-                        rent = 25
-                    case 2:
-                        rent = 50
-                    case 3:
                         rent = 75
-                    case 4:
+                    case 2:
                         rent = 100
+                    case 3:
+                        rent = 125
+                    case 4:
+                        rent = 150
+            else:
+                match set_number:
+                    case 1:
+                        rent = self.current_player_location_property.price // 2
+                    case 2:
+                        rent = self.current_player_location_property.price
+                    case 3:
+                        rent = self.current_player_location_property.price * 2
+
             for title in self.current_player_location_property.owned_by.properties:
                 if title.colour == set_colour:
                     title.rent = rent
@@ -1143,7 +1131,7 @@ class Monopoly:
             for player in final_player_list:
                 money = player.money
                 for title in player.properties:
-                    money += title.price
+                    money += title.rent
                 player.money = money
                 final_player_money_list.append(player.money)
             winner = final_player_list[
