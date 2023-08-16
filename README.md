@@ -1,6 +1,6 @@
 # monopoly
 
-monopoly game created by jayanth for a school project :D
+monopoly game in python using tkinter created by jayanth for a school project :D
 
 moddified some rules but i dont really care to tell them
 
