@@ -1,42 +1,44 @@
-import tkinter as tk  # To create Graphical User Interface
-import tkextrafont  # To use custom fonts
-import random  # For dice rolling
 import csv  # To read csv files
-import itertools  # To create player loop
 import ctypes  # To get HD Graphical User Interface
+import itertools  # To create player loop
+import random  # For dice rolling
+import tkinter as tk  # To create Graphical User Interface
+from dataclasses import dataclass  # To create concise dataclasses
+
+import tkextrafont  # To use custom fonts
 from PIL import Image, ImageTk  # To import and create images
 
 
+@dataclass
 class Player:
-    def __init__(self):
-        # Assigning basic requirements for each player
-        self.name: str
-        self.token: int
-        self.token_image: ImageTk.PhotoImage
-        self.token_display_image: ImageTk.PhotoImage
-        self.location = 1
-        self.money = 1500
-        self.properties = list()
+    # Assigning basic requirements for each player
+    name = ""
+    token = 0
+    token_image = None
+    token_display_image = None
+    location = 1
+    money = 1500
+    properties = []
 
 
+@dataclass
 class Property:
-    def __init__(self):
-        # Defining types for each attribute  of property
-        self.name: str
-        self.price: int
-        self.colour: str
-        self.owned_by = str()
-        self.rent = int()
-        self.location = tuple()
+    # Defining types for each attribute  of property
+    name = ""
+    price = 0
+    colour = ""
+    owned_by = ""
+    rent = 0
+    location = ()
 
 
+@dataclass
 class Card:
-    def __init__(self):
-        # Defining types for each attribute  of cards
-        self.type: str
-        self.function: str
-        self.value: str
-        self.name: str
+    # Defining types for each attribute  of cards
+    group = ""
+    function = ""
+    value = ""
+    name = ""
 
 
 class Monopoly:
@@ -314,7 +316,7 @@ class Monopoly:
         self.player_4_entry.bind(
             "<FocusOut>",
             lambda _: (
-                self.player_4_entry.insert(0, "Player 1"),
+                self.player_4_entry.insert(0, "Player 4"),
                 self.player_4_entry.configure(fg="grey"),
             )
             if self.player_4_entry.get() == ""
@@ -439,16 +441,16 @@ class Monopoly:
         self.dice_6_image = ImageTk.PhotoImage(file=r"textures\dice-6.png")
 
         # Creating card instances and assigning unique values
-        self.chance_list = list()
-        self.chest_list = list()
-        with open(r"cards.csv", newline="") as file:
+        self.chance_list = []
+        self.chest_list = []
+        with open(r"cards.csv", "r", newline="") as file:
             for card_info in csv.reader(file):
                 card_instance = Card()
-                card_instance.type = card_info[0]
+                card_instance.group = card_info[0]
                 card_instance.function = card_info[1]
                 card_instance.value = card_info[2]
                 card_instance.name = card_info[3]
-                match card_instance.type:
+                match card_instance.group:
                     case "c":
                         self.chance_list.append(card_instance)
                     case "cc":
@@ -457,9 +459,9 @@ class Monopoly:
         random.shuffle(self.chest_list)
 
         # Creating property instances and assigning unique values
-        self.property_locations = dict()
+        self.property_locations = {}
         property_locations_list = itertools.cycle(range(1, 41))
-        with open(r"properties.csv", newline="") as file:
+        with open(r"properties.csv", "r", newline="") as file:
             for property_info in csv.reader(file):
                 property_instance = Property()
                 self.property_locations[
@@ -657,6 +659,7 @@ class Monopoly:
         for title in player.properties:
             player_info_text += str(title.name)
             player_info_text += "\n"
+
         player_info = tk.Label(
             self.screen,
             text=player_info_text,
@@ -726,57 +729,21 @@ class Monopoly:
 
     def dice_display(self, dice_1, dice_2):
         # Displayng dice images based on result
-        match dice_1:
-            case 1:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_1_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 2:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_2_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 3:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_3_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 4:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_4_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 5:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_5_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 6:
-                self.dice_1_display = tk.Label(
-                    self.screen, image=self.dice_6_image, borderwidth=0, bg="#CCE3C7"
-                )
-        match dice_2:
-            case 1:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_1_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 2:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_2_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 3:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_3_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 4:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_4_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 5:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_5_image, borderwidth=0, bg="#CCE3C7"
-                )
-            case 6:
-                self.dice_2_display = tk.Label(
-                    self.screen, image=self.dice_6_image, borderwidth=0, bg="#CCE3C7"
-                )
+        dice_images = {
+            1: self.dice_1_image,
+            2: self.dice_2_image,
+            3: self.dice_3_image,
+            4: self.dice_4_image,
+            5: self.dice_5_image,
+            6: self.dice_6_image,
+        }
+        self.dice_1_display = tk.Label(
+            self.screen, image=dice_images[dice_1], borderwidth=0, bg="#CCE3C7"
+        )
         self.dice_1_display.place(x=360, y=560, anchor="e")
+        self.dice_2_display = tk.Label(
+            self.screen, image=dice_images[dice_2], borderwidth=0, bg="#CCE3C7"
+        )
         self.dice_2_display.place(x=372, y=560, anchor="w")
 
     def player_turn(self):
@@ -904,29 +871,23 @@ class Monopoly:
         # Going to next player in the player turn loop
         self.player_turn_init(next(self.player_loop))
 
-        # Closing all menus
-        try:
-            self.current_player_landing.destroy()
-            self.dice_1_display.destroy()
-            self.dice_2_display.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.property_choice_display.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.action_display.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.card_display.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.salary_display.destroy()
-        except AttributeError:
-            pass
+        # List of attributes to destroy
+        attributes_to_destroy = [
+            "current_player_landing",
+            "dice_1_display",
+            "dice_2_display",
+            "property_choice_display",
+            "action_display",
+            "card_display",
+            "salary_display",
+        ]
+
+        # Loop through the attributes and destroy them
+        for attribute in attributes_to_destroy:
+            try:
+                getattr(self, attribute).destroy()
+            except AttributeError:
+                pass
 
     def buy_property(self):
         # Charging money from player
@@ -934,6 +895,7 @@ class Monopoly:
         if not self.end_check():
             self.current_player.properties.append(self.current_player_location_property)
             self.current_player_location_property.owned_by = self.current_player
+
             # Displaying purchace
             self.action_display = tk.Label(
                 self.screen,
@@ -1056,7 +1018,7 @@ class Monopoly:
 
     def show_card(self):
         # Displays Chance and Community Chest cards accordingly
-        card_text = str()
+        card_text = ""
         if self.current_player_location_property.colour == "Chance":
             draw_card = self.chance_list.pop(0)
             self.chance_list.append(draw_card)
@@ -1127,7 +1089,7 @@ class Monopoly:
                 self.player_4,
             ]
             final_player_list.remove(self.current_player)
-            final_player_money_list = list()
+            final_player_money_list = []
             for player in final_player_list:
                 money = player.money
                 for title in player.properties:
