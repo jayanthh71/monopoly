@@ -1,44 +1,43 @@
 import csv  # To read csv files
-import ctypes  # To get HD Graphical User Interface
 import itertools  # To create player loop
 import random  # For dice rolling
 import tkinter as tk  # To create Graphical User Interface
-from dataclasses import dataclass  # To create concise dataclasses
+from ctypes import windll  # To get HD Graphical User Interface
 
 import tkextrafont  # To use custom fonts
 from PIL import Image, ImageTk  # To import and create images
 
 
-@dataclass
 class Player:
-    # Assigning basic requirements for each player
-    name = ""
-    token = 0
-    token_image = None
-    token_display_image = None
-    location = 1
-    money = 1500
-    properties = []
+    def __init__(self):
+        # Assigning default attributes for players
+        self.name = ""
+        self.token = 0
+        self.token_image = None
+        self.token_display_image = None
+        self.location = 1
+        self.money = 1500
+        self.properties = []
 
 
-@dataclass
 class Property:
-    # Defining types for each attribute  of property
-    name = ""
-    price = 0
-    colour = ""
-    owned_by = ""
-    rent = 0
-    location = ()
+    def __init__(self):
+        # Assigning default attributes of properties
+        self.name = ""
+        self.price = 0
+        self.colour = ""
+        self.owned_by = ""
+        self.rent = 0
+        self.location = ()
 
 
-@dataclass
 class Card:
-    # Defining types for each attribute  of cards
-    group = ""
-    function = ""
-    value = ""
-    name = ""
+    def __init__(self):
+        # Assigning default attributes of cards
+        self.group = ""
+        self.function = ""
+        self.value = ""
+        self.name = ""
 
 
 class Monopoly:
@@ -341,7 +340,7 @@ class Monopoly:
         )
         player_4_right.place(x=1108, y=441.5, anchor="nw")
 
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        windll.shcore.SetProcessDpiAwareness(1)
         self.root.mainloop()
 
     def next_token(self, num):
@@ -650,15 +649,13 @@ class Monopoly:
             [self.player_1, self.player_2, self.player_3, self.player_4]
         )
         self.player_turn_init(next(self.player_loop))
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        windll.shcore.SetProcessDpiAwareness(1)
         self.root.mainloop()
 
     def display_player_info(self, player):
         # Shows player info after player button is clicked
         player_info_text = f"{player.name}\n${player.money}\n\n"
-        for title in player.properties:
-            player_info_text += str(title.name)
-            player_info_text += "\n"
+        player_info_text += "\n".join([title.name for title in player.properties])
 
         player_info = tk.Label(
             self.screen,
