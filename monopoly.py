@@ -80,23 +80,239 @@ class Monopoly:
         self.player_3 = Player()
         self.player_4 = Player()
 
+        windll.shcore.SetProcessDpiAwareness(1)
+        self.title_screen_display()
+
+    def title_screen_display(self):
+        # Destroying game screen if exists (coming from saving game)
+        try:
+            self.screen.destroy()
+        except AttributeError:
+            pass
+
         # Show title screen
         self.title_screen = tk.Frame(self.root, bg="#2A363B")
         self.title_screen.pack(fill="both", expand=True)
 
         # Importing neccesary images
+        self.title_image = ImageTk.PhotoImage(file=r"textures\title.png")
         self.button_image = ImageTk.PhotoImage(file=r"textures\button.png")
-        title_image = ImageTk.PhotoImage(file=r"textures\title.png")
+        self.save_button = ImageTk.PhotoImage(file=r"textures\save.png")
+
+        # Creating elements on title screen
+        saves_select = tk.Label(
+            self.title_screen,
+            borderwidth=0,
+            font=self.big_font,
+            text="Save Select",
+            bg="#2A363B",
+            fg="white",
+        )
+        saves_select.place(x=532, y=162.5, width=216, height=53, anchor="nw")
+        title = tk.Label(
+            self.title_screen, image=self.title_image, borderwidth=0, bg="#2A363B"
+        )
+        title.place(relx=0.5, y=50, anchor="n")
+
+        # Creating save select displays
+        self.save_1_label = tk.Label(
+            self.title_screen,
+            borderwidth=0,
+            font=self.font,
+            text="Save 1",
+            bg="#2A363B",
+            fg="white",
+        )
+        self.save_1_label.place(x=260, y=303.5, anchor="center")
+        self.save_1_button = tk.Button(
+            self.title_screen,
+            borderwidth=0,
+            text="1",
+            font=self.big_font,
+            compound="center",
+            image=self.save_button,
+            bg="#2A363B",
+            activebackground="#2A363B",
+            command=lambda: self.select_save(1),
+        )
+        self.save_1_button.place(x=188, y=353.5, anchor="nw")
+        self.save_2_label = tk.Label(
+            self.title_screen,
+            borderwidth=0,
+            font=self.font,
+            text="Save 2",
+            bg="#2A363B",
+            fg="white",
+        )
+        self.save_2_label.place(x=516, y=303.5, anchor="center")
+        self.save_2_button = tk.Button(
+            self.title_screen,
+            borderwidth=0,
+            text="2",
+            font=self.big_font,
+            compound="center",
+            image=self.save_button,
+            bg="#2A363B",
+            activebackground="#2A363B",
+            command=lambda: self.select_save(2),
+        )
+        self.save_2_button.place(x=444, y=353.5, anchor="nw")
+        self.save_3_label = tk.Label(
+            self.title_screen,
+            borderwidth=0,
+            font=self.font,
+            text="Save 3",
+            bg="#2A363B",
+            fg="white",
+        )
+        self.save_3_label.place(x=780, y=303.5, anchor="center")
+        self.save_3_button = tk.Button(
+            self.title_screen,
+            borderwidth=0,
+            text="3",
+            font=self.big_font,
+            compound="center",
+            image=self.save_button,
+            bg="#2A363B",
+            activebackground="#2A363B",
+            command=lambda: self.select_save(3),
+        )
+        self.save_3_button.place(x=708, y=353.5, anchor="nw")
+        self.save_4_label = tk.Label(
+            self.title_screen,
+            borderwidth=0,
+            font=self.font,
+            text="Save 4",
+            bg="#2A363B",
+            fg="white",
+        )
+        self.save_4_label.place(x=1036, y=303.5, anchor="center")
+        self.save_4_button = tk.Button(
+            self.title_screen,
+            borderwidth=0,
+            text="4",
+            font=self.big_font,
+            compound="center",
+            image=self.save_button,
+            bg="#2A363B",
+            activebackground="#2A363B",
+            command=lambda: self.select_save(4),
+        )
+        self.save_4_button.place(x=964, y=353.5, anchor="nw")
+
+        self.root.mainloop()
+
+    def select_save(self, save):
+        # Destorys select and delete button if exists
+        try:
+            self.select_button.destroy()
+            self.delete_button.destroy()
+        except AttributeError:
+            pass
+
+        # Resets save buttons in case one is already selected
+        self.save_1_button.config(text="1", image=self.save_button)
+        self.save_2_button.config(text="2", image=self.save_button)
+        self.save_3_button.config(text="3", image=self.save_button)
+        self.save_4_button.config(text="4", image=self.save_button)
+
+        selected_save_image = ImageTk.PhotoImage(file=r"textures\selected-save.png")
+        self.save = save
+
+        # Indicating that current save has been selected
+        match self.save:
+            case 1:
+                self.save_1_button.config(text="", image=selected_save_image)
+            case 2:
+                self.save_2_button.config(text="", image=selected_save_image)
+            case 3:
+                self.save_3_button.config(text="", image=selected_save_image)
+            case 4:
+                self.save_4_button.config(text="", image=selected_save_image)
+
+        # Displays select and delete button if save file exists
+        if self.save_exists():
+            self.select_button = tk.Button(
+                self.title_screen,
+                borderwidth=0,
+                text="SELECT",
+                font=self.font,
+                compound="center",
+                image=self.button_image,
+                bg="#2A363B",
+                activebackground="#2A363B",
+                command=self.import_sql,
+            )
+            self.select_button.place(x=512.5, y=670, width=170, height=62, anchor="s")
+            self.delete_button = tk.Button(
+                self.title_screen,
+                borderwidth=0,
+                text="DELETE",
+                font=self.font,
+                compound="center",
+                image=self.button_image,
+                bg="#2A363B",
+                activebackground="#2A363B",
+                command=self.delete_save,
+            )
+            self.delete_button.place(x=767.5, y=670, width=170, height=62, anchor="s")
+        else:
+            self.select_button = tk.Button(
+                self.title_screen,
+                borderwidth=0,
+                text="SELECT",
+                font=self.font,
+                compound="center",
+                image=self.button_image,
+                bg="#2A363B",
+                activebackground="#2A363B",
+                command=self.player_select_screen,
+            )
+            self.select_button.place(relx=0.5, y=670, width=170, height=62, anchor="s")
+
+        self.root.mainloop()
+
+    def save_exists(self):
+        # Test values ignore lol
+        match self.save:
+            case 1:
+                return False
+            case 2:
+                return True
+            case 3:
+                return False
+            case 4:
+                return True
+        raise NotImplementedError("Save Exists Function")
+
+    def push_sql(self):
+        raise NotImplementedError("Push to SQL")
+
+    def import_sql(self):
+        raise NotImplementedError("Import from SQL")
+
+    def delete_save(self):
+        raise NotImplementedError("Deleting Saves")
+
+    def player_select_screen(self):
+        # Destroy title screen
+        self.title_screen.destroy()
+
+        # Show select screen
+        self.select_screen = tk.Frame(self.root, bg="#2A363B")
+        self.select_screen.pack(fill="both", expand=True)
+
+        # Importing neccesary images
         right_image = ImageTk.PhotoImage(file=r"textures\right-arrow.png")
         left_image = ImageTk.PhotoImage(file=r"textures\left-arrow.png")
 
-        # Creating elements on title screen
+        # Creating elements on select screen
         title = tk.Label(
-            self.title_screen, image=title_image, borderwidth=0, bg="#2A363B"
+            self.select_screen, image=self.title_image, borderwidth=0, bg="#2A363B"
         )
         title.place(relx=0.5, y=50, anchor="n")
         player_select = tk.Label(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             font=self.big_font,
             text="Player Select",
@@ -105,7 +321,7 @@ class Monopoly:
         )
         player_select.place(x=532, y=162.5, width=216, height=53, anchor="nw")
         start_button = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             text="START",
             font=self.font,
@@ -121,14 +337,14 @@ class Monopoly:
         self.player_1_index = 0
         self.player_1_image = ImageTk.PhotoImage(file=self.display_tokens[0])
         self.player_1_image_label = tk.Label(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=self.player_1_image,
             bg="#2A363B",
         )
         self.player_1_image_label.place(x=188, y=393.5, anchor="nw")
         self.player_1_entry = tk.Entry(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             font=self.font,
             justify="center",
@@ -155,7 +371,7 @@ class Monopoly:
             else None,
         )
         player_1_left = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=left_image,
             bg="#2A363B",
@@ -164,7 +380,7 @@ class Monopoly:
         )
         player_1_left.place(x=140, y=441.5, anchor="nw")
         player_1_right = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=right_image,
             bg="#2A363B",
@@ -176,14 +392,14 @@ class Monopoly:
         self.player_2_index = 1
         self.player_2_image = ImageTk.PhotoImage(file=self.display_tokens[1])
         self.player_2_image_label = tk.Label(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=self.player_2_image,
             bg="#2A363B",
         )
         self.player_2_image_label.place(x=444, y=393.5, anchor="nw")
         self.player_2_entry = tk.Entry(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             font=self.font,
             justify="center",
@@ -210,7 +426,7 @@ class Monopoly:
             else None,
         )
         player_2_left = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=left_image,
             bg="#2A363B",
@@ -219,7 +435,7 @@ class Monopoly:
         )
         player_2_left.place(x=396, y=441.5, anchor="nw")
         player_2_right = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=right_image,
             bg="#2A363B",
@@ -231,14 +447,14 @@ class Monopoly:
         self.player_3_index = 2
         self.player_3_image = ImageTk.PhotoImage(file=self.display_tokens[2])
         self.player_3_image_label = tk.Label(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=self.player_3_image,
             bg="#2A363B",
         )
         self.player_3_image_label.place(x=708, y=393.5, anchor="nw")
         self.player_3_entry = tk.Entry(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             font=self.font,
             justify="center",
@@ -265,7 +481,7 @@ class Monopoly:
             else None,
         )
         player_3_left = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=left_image,
             bg="#2A363B",
@@ -274,7 +490,7 @@ class Monopoly:
         )
         player_3_left.place(x=660, y=441.5, anchor="nw")
         player_3_right = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=right_image,
             bg="#2A363B",
@@ -286,14 +502,14 @@ class Monopoly:
         self.player_4_index = 3
         self.player_4_image = ImageTk.PhotoImage(file=self.display_tokens[3])
         self.player_4_image_label = tk.Label(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=self.player_4_image,
             bg="#2A363B",
         )
         self.player_4_image_label.place(x=964, y=393.5, anchor="nw")
         self.player_4_entry = tk.Entry(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             font=self.font,
             justify="center",
@@ -322,7 +538,7 @@ class Monopoly:
             else None,
         )
         player_4_left = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=left_image,
             bg="#2A363B",
@@ -331,7 +547,7 @@ class Monopoly:
         )
         player_4_left.place(x=916, y=441.5, anchor="nw")
         player_4_right = tk.Button(
-            self.title_screen,
+            self.select_screen,
             borderwidth=0,
             image=right_image,
             bg="#2A363B",
@@ -340,7 +556,6 @@ class Monopoly:
         )
         player_4_right.place(x=1108, y=441.5, anchor="nw")
 
-        windll.shcore.SetProcessDpiAwareness(1)
         self.root.mainloop()
 
     def next_token(self, num):
@@ -406,7 +621,7 @@ class Monopoly:
         self.player_3.name = self.player_3_entry.get()
         self.player_4.name = self.player_4_entry.get()
 
-        self.title_screen.destroy()
+        self.select_screen.destroy()
 
         # Creating game screen
         self.screen = tk.Frame(self.root, background="black")
@@ -430,6 +645,18 @@ class Monopoly:
         # Loading some images
         self.close_player_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
         self.dice_image = ImageTk.PhotoImage(file=r"textures\dice.png")
+        exit_image = ImageTk.PhotoImage(file=r"textures/exit.png")
+
+        # Creating exit button
+        exit_button = tk.Button(
+            self.screen,
+            borderwidth=0,
+            bg="#CA7264",
+            activebackground="#CA7264",
+            image=exit_image,
+            command=lambda: (self.title_screen_display(), self.push_sql()),
+        )
+        exit_button.place(relx=1, anchor="ne")
 
         # Loading dice images
         self.dice_1_image = ImageTk.PhotoImage(file=r"textures\dice-1.png")
@@ -649,36 +876,45 @@ class Monopoly:
             [self.player_1, self.player_2, self.player_3, self.player_4]
         )
         self.player_turn_init(next(self.player_loop))
-        windll.shcore.SetProcessDpiAwareness(1)
+
         self.root.mainloop()
 
     def display_player_info(self, player):
+        # Try destroying info screen if already exists
+        try:
+            self.player_info.destroy()
+            self.close_player_button.destroy()
+        except AttributeError:
+            pass
+
         # Shows player info after player button is clicked
         player_info_text = f"{player.name}\n${player.money}\n\n"
         player_info_text += "\n".join([title.name for title in player.properties])
 
-        player_info = tk.Label(
+        self.player_info = tk.Label(
             self.screen,
             text=player_info_text,
             borderwidth=0,
             font=self.small_font,
             bg="#B9CEB5",
         )
-        player_info.place(height=280, width=250, x=360, y=360, anchor="center")
+        self.player_info.place(height=280, width=250, x=360, y=360, anchor="center")
 
         # Shows player info close button
-        close_player_button = tk.Button(
+        self.close_player_button = tk.Button(
             self.screen,
             borderwidth=0,
             image=self.close_player_button_image,
             bg="#B9CEB5",
             activebackground="#B9CEB5",
             command=lambda: (
-                player_info.destroy(),
-                close_player_button.destroy(),
+                self.player_info.destroy(),
+                self.close_player_button.destroy(),
             ),
         )
-        close_player_button.place(width=24, height=24, x=460, y=245, anchor="center")
+        self.close_player_button.place(
+            width=24, height=24, x=460, y=245, anchor="center"
+        )
 
     def player_turn_init(self, player):
         self.current_player = player
