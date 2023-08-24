@@ -1,6 +1,6 @@
 # Game Overview
 
-monopoly game in python using tkinter and pillow created by Jayanth for a school project :D
+monopoly game in python using tkinter and pillow for a school project :D
 
 moddified some rules like jail cz its literlly too complex and i dont have the time for that
 
