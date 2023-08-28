@@ -12,8 +12,8 @@ Save system using mysql
 
 # Dependencies
 
-- Pillow module
-- tkextrafont module
+- [Pillow](https://github.com/python-pillow/Pillow) module
+- [tkextrafont](https://github.com/TkinterEP/python-tkextrafont) module
 
 # Images 
 
