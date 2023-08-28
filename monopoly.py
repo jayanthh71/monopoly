@@ -47,7 +47,6 @@ class Monopoly:
         self.root.geometry("1280x720")
         self.root.title("Monopoly")
         self.root.resizable(False, False)
-        self.root.attributes("-topmost", True)
 
         # Loading fonts
         self.big_font = tkextrafont.Font(
@@ -1096,6 +1095,11 @@ class Monopoly:
                 bg="#CCE3C7",
                 font=self.small_font,
             )
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
             self.action_display.place(x=360, y=260, anchor="n")
             self.board.coords(self.current_player.token, 63, 660)
             self.end_turn_button.destroy()
@@ -1137,6 +1141,11 @@ class Monopoly:
                 bg="#CCE3C7",
                 font=self.small_font,
             )
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
             self.action_display.place(x=360, y=260, anchor="n")
 
             # Increasing rent of color sets (if any)
@@ -1184,6 +1193,11 @@ class Monopoly:
                 bg="#CCE3C7",
                 font=self.small_font,
             )
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
             self.action_display.place(x=360, y=260, anchor="n")
 
     def pay_tax(self):
@@ -1197,6 +1211,11 @@ class Monopoly:
                 bg="#CCE3C7",
                 font=self.small_font,
             )
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
             self.action_display.place(x=360, y=260, anchor="n")
 
     def pay_utility(self):
@@ -1217,6 +1236,11 @@ class Monopoly:
                     bg="#CCE3C7",
                     font=self.small_font,
                 )
+                try:
+                    self.player_info.destroy()
+                    self.close_player_button.destroy()
+                except AttributeError:
+                    pass
                 self.action_display.place(x=360, y=260, anchor="n")
         elif utility_count == 2:
             self.current_player.money -= self.roll_no * 10
@@ -1232,6 +1256,11 @@ class Monopoly:
                     bg="#CCE3C7",
                     font=self.small_font,
                 )
+                try:
+                    self.player_info.destroy()
+                    self.close_player_button.destroy()
+                except AttributeError:
+                    pass
                 self.action_display.place(x=360, y=260, anchor="n")
 
     def pay_fine(self):
@@ -1246,6 +1275,11 @@ class Monopoly:
                 bg="#CCE3C7",
                 font=self.small_font,
             )
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
             self.action_display.place(x=360, y=260, anchor="n")
             self.end_turn_display()
 
