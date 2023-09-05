@@ -12,7 +12,7 @@ Ability to create save files using MySQL
 
 - [Pillow](https://github.com/python-pillow/Pillow) module
 - [tkextrafont](https://github.com/TkinterEP/python-tkextrafont) module
-- [mysql.connecter](https://github.com/mysql/mysql-connector-python) module
+- [mysql](https://github.com/mysql/mysql-connector-python) module
 
 # Images 
 
