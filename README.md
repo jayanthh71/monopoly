@@ -6,14 +6,13 @@ Modified some rules like jail and the property rent system
 
 Missing some features like property trading, houses and mortgages
 
-# Upcoming Features
-
-Save system using mysql
+Ability to create save files using MySQL
 
 # Dependencies
 
 - [Pillow](https://github.com/python-pillow/Pillow) module
 - [tkextrafont](https://github.com/TkinterEP/python-tkextrafont) module
+- [mysql.connecter](https://github.com/mysql/mysql-connector-python) module
 
 # Images 
 
