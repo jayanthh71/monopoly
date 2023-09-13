@@ -18,10 +18,13 @@ Can be played with PC also
 
 # Images 
 
-![WhatsApp Image 2023-08-22 at 1 02 20 PM](https://github.com/jayynut/monopoly/assets/134786265/91fc2174-e449-467d-b8cb-a01e3fe6f3dd)
-![WhatsApp Image 2023-08-22 at 1 02 58 PM](https://github.com/jayynut/monopoly/assets/134786265/ecef4f68-dd97-418f-91cd-a331917a4972)
-![WhatsApp Image 2023-08-22 at 1 04 26 PM](https://github.com/jayynut/monopoly/assets/134786265/0465a563-ff7f-409e-9cd2-e91f104297f0)
-![WhatsApp Image 2023-08-22 at 1 05 15 PM](https://github.com/jayynut/monopoly/assets/134786265/9a191eb5-dd74-4afc-bea1-e0a02b175ac4)
-![WhatsApp Image 2023-08-22 at 6 00 18 PM](https://github.com/jayynut/monopoly/assets/134786265/1420c7bb-0381-4c39-a8e2-a75c6ea8f2ed)
+![WhatsApp Image 2023-09-13 at 8 55 33 PM](https://github.com/jayynut/monopoly/assets/134786265/d9387ae8-b333-4ed6-91c5-08fb6602eaf5)
+![WhatsApp Image 2023-09-13 at 8 55 59 PM](https://github.com/jayynut/monopoly/assets/134786265/2f0e3487-a4a6-4f89-af4f-b6ad1aa3ed5e)
+![WhatsApp Image 2023-09-13 at 8 56 21 PM](https://github.com/jayynut/monopoly/assets/134786265/74631591-dbef-4f66-8742-373e5f1b75b9)
+![WhatsApp Image 2023-09-13 at 8 57 29 PM](https://github.com/jayynut/monopoly/assets/134786265/22a48dd2-8738-442e-96f1-ccf06b954244)
+![WhatsApp Image 2023-09-13 at 8 57 29 PM (1)](https://github.com/jayynut/monopoly/assets/134786265/aba761c6-a502-4095-95df-96ce3009bbf8)
+![WhatsApp Image 2023-09-13 at 8 58 02 PM](https://github.com/jayynut/monopoly/assets/134786265/19423b9a-f2ae-4205-ad2d-c88d0bc2bd08)
+![WhatsApp Image 2023-09-13 at 8 58 53 PM](https://github.com/jayynut/monopoly/assets/134786265/13b8b267-6fbd-404b-ad7b-5e0cc5b62c36)
+
 
 enjoy playing :)))
