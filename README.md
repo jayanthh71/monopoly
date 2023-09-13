@@ -8,6 +8,8 @@ Missing some features like property trading, houses and mortgages
 
 Ability to create save files using MySQL
 
+Can be played with PC also
+
 # Dependencies
 
 - [Pillow](https://github.com/python-pillow/Pillow) module
