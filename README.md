@@ -8,7 +8,7 @@ Missing some features like property trading, houses and mortgages
 
 Ability to create save files using MySQL
 
-Can be played with PC also
+Can be played against PC also
 
 # Dependencies
 
