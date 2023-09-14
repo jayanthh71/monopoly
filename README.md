@@ -2,9 +2,9 @@
 
 Monopoly game in Python using tkinter and pillow for a school project :D
 
-Modified some rules like jail and the property rent system
+Has most of the features but missing some like property trading, houses and mortgages
 
-Missing some features like property trading, houses and mortgages
+Modified some rules like jail and the property rent system
 
 Ability to create save files using MySQL
 
