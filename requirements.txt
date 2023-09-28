@@ -1,0 +1,4 @@
+mysql-connector-python==8.1.0
+Pillow==10.0.0
+protobuf==4.21.12
+tkextrafont==0.6.3
