@@ -103,7 +103,7 @@ class Monopoly:
         self.importing_sql = False
         self.is_connected_sql = False
 
-        windll.shcore.SetProcessDpiAwareness(1)
+        windll.shcore.SetProcessDpiAwareness(2)
         self.menu_screen_display()
 
     def menu_screen_display(self):
