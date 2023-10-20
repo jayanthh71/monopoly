@@ -1666,7 +1666,7 @@ class Monopoly:
             if self.current_player["type"] == "human":
                 fine_display = tk.Button(
                     self.screen,
-                    text=f"FINE: $50",
+                    text="FINE: $50",
                     compound="center",
                     image=self.button_image,
                     bg=self.BG_BUTTON,
