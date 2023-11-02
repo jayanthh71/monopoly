@@ -1396,11 +1396,21 @@ class Monopoly:
                 696, 695, image=self.player_4["token_image"], anchor="center"
             )
 
-            # Creating player turn loop
-            self.player_loop = itertools.cycle(
-                [self.player_1, self.player_2, self.player_3, self.player_4]
+            # Finding player order loop
+            self.order_label = tk.Label(
+                self.screen,
+                text="Who will go first?\n",
+                borderwidth=0,
+                font=self.FONT,
+                bg=self.BG_BOARD,
             )
-            self.player_turn_init(next(self.player_loop))
+            self.order_label.place(x=360, y=145, anchor="n")
+
+            self.current_player = {"type":"npc"}
+            self.play_order_list = itertools.cycle(
+                (self.player_2, self.player_3, self.player_4)
+            )
+            self.play_order(self.player_1)
         else:
             # Placing players on board
             x1, y1 = self.property_locations[self.player_1["location"]]["coords"]
@@ -1440,6 +1450,126 @@ class Monopoly:
                     player_order_stack.append(player)
 
         self.root.mainloop()
+
+    def play_order(self, player):
+        try:
+            self.player_label.destroy(),
+            self.player_icon.destroy()
+        except AttributeError:
+            pass
+
+        # Displays player info and dice button
+        self.player_label = tk.Label(
+            self.screen,
+            text=player["name"],
+            borderwidth=0,
+            font=self.FONT,
+            bg=self.BG_BOARD,
+        )
+        self.player_label.place(x=360, y=250, anchor="s")
+        self.player_icon = tk.Label(
+            self.screen,
+            borderwidth=0,
+            bg=self.BG_BOARD,
+            image=player["token_display_image"],
+        )
+        self.player_icon.place(x=360, y=275, anchor="n")
+        if player["type"] == "human":
+            dice_button = tk.Button(
+                self.screen,
+                image=self.dice_image,
+                borderwidth=0,
+                bg=self.BG_BOARD,
+                activebackground=self.BG_BOARD,
+                command=lambda: (
+                    dice_button.destroy(),
+                    self.highest_roll(player),
+                ),
+            )
+            dice_button.place(x=360, y=440, anchor="n")
+        else:
+            self.root.after(250, lambda: self.highest_roll(player))
+
+    def highest_roll(self, player):
+        # Rolls dice and calls next player
+        dice_1 = random.randint(1, 6)
+        dice_2 = random.randint(1, 6)
+        player["high_roll"] = dice_1 + dice_2
+        self.dice_display(dice_1, dice_2)
+        next_player = next(self.play_order_list)
+
+        if not next_player.get("high_roll"):
+            self.root.after(
+                1750,
+                lambda: (
+                    self.dice_1_display.destroy(),
+                    self.dice_2_display.destroy(),
+                    self.play_order(next_player),
+                ),
+            )
+
+        else:
+            self.root.after(
+                1750,
+                lambda: (
+                    self.player_label.destroy(),
+                    self.player_icon.destroy(),
+                    self.dice_1_display.destroy(),
+                    self.dice_2_display.destroy(),
+                    self.find_order(),
+                ),
+            )
+
+    def find_order(self):
+        # Finds player with highest roll
+        highest_player = sorted(
+            (self.player_1, self.player_2, self.player_3, self.player_4),
+            key=lambda player: player["high_roll"],
+        )[-1]
+
+        # Sorts player loop list accordingly
+        player_order_stack = []
+        player_list = [self.player_4, self.player_3, self.player_2, self.player_1]
+        for player in (self.player_1, self.player_2, self.player_3, self.player_4):
+            player_list.pop()
+            if player == highest_player:
+                # Creating player turn loop
+                player_order = [player, *player_list[::-1], *player_order_stack]
+                self.player_loop = itertools.cycle(player_order)
+            else:
+                player_order_stack.append(player)
+
+        # Displays final player order
+        high_name = tk.Label(
+            self.screen,
+            text=f"{highest_player["name"]} goes first",
+            borderwidth=0,
+            font=self.FONT,
+            bg=self.BG_BOARD,
+        )
+        high_name.place(x=360, y=275, anchor="s")
+        high_icon = tk.Label(
+            self.screen,
+            borderwidth=0,
+            bg=self.BG_BOARD,
+            image=highest_player["token_display_image"],
+        )
+        high_icon.place(x=360, y=300, anchor="n")
+
+        self.player_1.pop("high_roll")
+        self.player_2.pop("high_roll")
+        self.player_3.pop("high_roll")
+        self.player_4.pop("high_roll")
+
+        self.root.after(
+            1750,
+            lambda: (
+                self.order_label.destroy(),
+                high_name.destroy(),
+                high_icon.destroy(),
+                self.player_turn_init(next(self.player_loop)),
+            ),
+        )
 
     def display_player_info(self, player):
         # Try destroying info screen if already exists
