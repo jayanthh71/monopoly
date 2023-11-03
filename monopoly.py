@@ -21,7 +21,7 @@ class Monopoly:
 
         # Loading fonts
         self.BIG_FONT = tkextrafont.Font(
-            file=r"fonts\big_font.ttf",
+            file=r"fonts\big-font.ttf",
             family="Kabel Bd",
             size=20,
         )
@@ -31,7 +31,7 @@ class Monopoly:
             size=18,
         )
         self.SMALL_FONT = tkextrafont.Font(
-            file=r"fonts\small_font.ttf",
+            file=r"fonts\small-font.ttf",
             family="Kabel Bd",
             size=12,
         )
@@ -2057,6 +2057,12 @@ class Monopoly:
                     card_text += f"Community Chest\n\n{draw_card['name']}\n\n{self.current_player['name']} got $200"
                     self.board.coords(self.current_player["token"], 675, 675)
         if not self.end_check():
+            try:
+                self.player_info.destroy()
+                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+
             self.card_display = tk.Label(
                 self.screen,
                 text=card_text,
