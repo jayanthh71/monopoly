@@ -1094,10 +1094,10 @@ class Monopoly:
     def start_game(self):
         # Assigning names to players
         try:
-            self.player_1["name"] = self.player_1_entry.get()
-            self.player_2["name"] = self.player_2_entry.get()
-            self.player_3["name"] = self.player_3_entry.get()
-            self.player_4["name"] = self.player_4_entry.get()
+            self.player_1["name"] = self.player_1_entry.get() if self.player_1_entry.get() != "" else "Player 1"
+            self.player_2["name"] = self.player_2_entry.get() if self.player_2_entry.get() != "" else "Player 2"
+            self.player_3["name"] = self.player_3_entry.get() if self.player_3_entry.get() != "" else "Player 3"
+            self.player_4["name"] = self.player_4_entry.get() if self.player_4_entry.get() != "" else "Player 4"
             self.select_screen.destroy()
         except:
             pass
@@ -1225,6 +1225,16 @@ class Monopoly:
                 property_instance["price"] = int(property_info[1])
                 property_instance["colour"] = property_info[2]
                 property_instance["coords"] = eval(property_info[3])
+
+        #Creating property card instances and assigning a property
+        self.property_cards = {}
+        with open("propertycards.csv","r",  newline="") as file:
+            for property_area in csv.reader(file):
+                property_card_info = {}
+                self.property_cards[eval(property_area[0])] = property_card_info
+                property_card_info["location"] = property_area[1]
+                property_card_info["colour"] = property_area[2]
+
 
         # Setting extra info if it is being imported
         if self.importing_sql:
