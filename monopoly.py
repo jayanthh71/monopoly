@@ -264,7 +264,7 @@ class Monopoly:
             fg=self.FG_WHITE,
         )
         saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
-        self.exit_button = tk.Button(
+        exit_button = tk.Button(
             self.load_game_screen,
             borderwidth=0,
             bg=self.BG_DARK,
@@ -272,7 +272,7 @@ class Monopoly:
             image=self.back_image,
             command=self.menu_screen_display,
         )
-        self.exit_button.place(x=25, y=25, anchor="nw")
+        exit_button.place(x=25, y=25, anchor="nw")
         title = tk.Label(
             self.load_game_screen,
             image=self.title_image,
@@ -508,141 +508,171 @@ class Monopoly:
             self.connect_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
         )
         title.place(relx=0.5, y=50, anchor="n")
-        self.save_connection_button = tk.Button(
-            self.connect_screen,
-            borderwidth=0,
-            text="SAVE",
-            font=self.FONT,
-            compound="center",
-            image=self.button_image,
-            bg=self.BG_DARK,
-            activebackground=self.BG_DARK,
-            fg="black",
-            activeforeground="black",
-            command=self.connect_sql,
-        )
-        self.save_connection_button.place(
-            relx=0.5, y=670, width=170, height=62, anchor="s"
-        )
-        self.exit_button = tk.Button(
-            self.connect_screen,
-            borderwidth=0,
-            bg=self.BG_DARK,
-            activebackground=self.BG_DARK,
-            image=self.back_image,
-            command=self.menu_screen_display,
-        )
-        self.exit_button.place(x=25, y=25, anchor="nw")
 
-        # Creating input entries and labels
-        host_label = tk.Label(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            text="Host:",
-            bg=self.BG_DARK,
-            fg=self.FG_WHITE,
-        )
-        host_label.place(relx=0.5, y=230, width=144, height=45, anchor="ne")
-        self.host_entry = tk.Entry(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            justify="center",
-            bg="white",
-            fg="black",
-        )
-        self.host_entry.place(relx=0.5, y=230, width=144, height=45, anchor="nw")
-        self.host_entry.insert(0, "localhost")
-        self.host_entry.bind("<Down>", lambda _: self.port_entry.focus_set())
-        port_label = tk.Label(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            text="Port:",
-            bg=self.BG_DARK,
-            fg=self.FG_WHITE,
-        )
-        port_label.place(relx=0.5, y=305, width=144, height=45, anchor="ne")
-        self.port_entry = tk.Entry(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            justify="center",
-            bg="white",
-            fg="black",
-        )
-        self.port_entry.place(relx=0.5, y=305, width=144, height=45, anchor="nw")
-        self.port_entry.insert(0, "3306")
-        self.port_entry.bind("<Up>", lambda _: self.host_entry.focus_set())
-        self.port_entry.bind("<Down>", lambda _: self.db_entry.focus_set())
-        db_label = tk.Label(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            text="Database:",
-            bg=self.BG_DARK,
-            fg=self.FG_WHITE,
-        )
-        db_label.place(relx=0.475, y=380, width=144, height=45, anchor="ne")
-        self.db_entry = tk.Entry(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            justify="center",
-            bg="white",
-            fg="black",
-        )
-        self.db_entry.place(relx=0.5, y=380, width=144, height=45, anchor="nw")
-        self.db_entry.bind("<Up>", lambda _: self.port_entry.focus_set())
-        self.db_entry.bind("<Down>", lambda _: self.user_entry.focus_set())
-        user_label = tk.Label(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            text="Username:",
-            bg=self.BG_DARK,
-            fg=self.FG_WHITE,
-        )
-        user_label.place(relx=0.475, y=455, width=144, height=45, anchor="ne")
-        self.user_entry = tk.Entry(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            justify="center",
-            bg="white",
-            fg="black",
-        )
-        self.user_entry.place(relx=0.5, y=455, width=144, height=45, anchor="nw")
-        self.user_entry.insert(0, "root")
-        self.user_entry.bind("<Up>", lambda _: self.db_entry.focus_set())
-        self.user_entry.bind("<Down>", lambda _: self.pass_entry.focus_set())
-        pass_label = tk.Label(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            text="Password:",
-            bg=self.BG_DARK,
-            fg=self.FG_WHITE,
-        )
-        pass_label.place(relx=0.475, y=530, width=144, height=45, anchor="ne")
-        self.pass_entry = tk.Entry(
-            self.connect_screen,
-            borderwidth=0,
-            font=self.FONT,
-            justify="center",
-            show="*",
-            bg="white",
-            fg="black",
-        )
-        self.pass_entry.place(relx=0.5, y=530, width=144, height=45, anchor="nw")
-        self.pass_entry.bind("<Up>", lambda _: self.user_entry.focus_set())
-        self.pass_entry.bind("<Return>", lambda _: self.connect_sql())
+        if self.is_connected_sql:
+            connected_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                text=f"Already connected to: {self.connect_info['database']}",
+                font=self.FONT,
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            connected_label.place(relx=0.5, y=340, anchor="center")
+            delete_label = tk.Button(
+                self.connect_screen,
+                borderwidth=0,
+                text="REMOVE",
+                font=self.FONT,
+                compound="center",
+                image=self.button_image,
+                bg=self.BG_DARK,
+                activebackground=self.BG_DARK,
+                fg="black",
+                activeforeground="black",
+                command=lambda: (
+                    setattr(self, "is_connected_sql", False),
+                    self.connect_screen.destroy(),
+                    self.connect_sql_screen_display(),
+                ),
+            )
+            delete_label.place(relx=0.5, rely=0.75, anchor="center")
+        else:
+            save_connection_button = tk.Button(
+                self.connect_screen,
+                borderwidth=0,
+                text="SAVE",
+                font=self.FONT,
+                compound="center",
+                image=self.button_image,
+                bg=self.BG_DARK,
+                activebackground=self.BG_DARK,
+                fg="black",
+                activeforeground="black",
+                command=self.connect_sql,
+            )
+            save_connection_button.place(
+                relx=0.5, y=670, width=170, height=62, anchor="s"
+            )
+            exit_button = tk.Button(
+                self.connect_screen,
+                borderwidth=0,
+                bg=self.BG_DARK,
+                activebackground=self.BG_DARK,
+                image=self.back_image,
+                command=self.menu_screen_display,
+            )
+            exit_button.place(x=25, y=25, anchor="nw")
+
+            # Creating input entries and labels
+            host_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                text="Host:",
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            host_label.place(relx=0.5, y=230, width=144, height=45, anchor="ne")
+            self.host_entry = tk.Entry(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                justify="center",
+                bg="white",
+                fg="black",
+            )
+            self.host_entry.place(relx=0.5, y=230, width=144, height=45, anchor="nw")
+            self.host_entry.insert(0, "localhost")
+            self.host_entry.bind("<Down>", lambda _: self.port_entry.focus_set())
+            port_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                text="Port:",
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            port_label.place(relx=0.5, y=305, width=144, height=45, anchor="ne")
+            self.port_entry = tk.Entry(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                justify="center",
+                bg="white",
+                fg="black",
+            )
+            self.port_entry.place(relx=0.5, y=305, width=144, height=45, anchor="nw")
+            self.port_entry.insert(0, "3306")
+            self.port_entry.bind("<Up>", lambda _: self.host_entry.focus_set())
+            self.port_entry.bind("<Down>", lambda _: self.db_entry.focus_set())
+            db_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                text="Database:",
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            db_label.place(relx=0.475, y=380, width=144, height=45, anchor="ne")
+            self.db_entry = tk.Entry(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                justify="center",
+                bg="white",
+                fg="black",
+            )
+            self.db_entry.place(relx=0.5, y=380, width=144, height=45, anchor="nw")
+            self.db_entry.bind("<Up>", lambda _: self.port_entry.focus_set())
+            self.db_entry.bind("<Down>", lambda _: self.user_entry.focus_set())
+            user_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                text="Username:",
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            user_label.place(relx=0.475, y=455, width=144, height=45, anchor="ne")
+            self.user_entry = tk.Entry(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                justify="center",
+                bg="white",
+                fg="black",
+            )
+            self.user_entry.place(relx=0.5, y=455, width=144, height=45, anchor="nw")
+            self.user_entry.insert(0, "root")
+            self.user_entry.bind("<Up>", lambda _: self.db_entry.focus_set())
+            self.user_entry.bind("<Down>", lambda _: self.pass_entry.focus_set())
+            pass_label = tk.Label(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                text="Password:",
+                bg=self.BG_DARK,
+                fg=self.FG_WHITE,
+            )
+            pass_label.place(relx=0.475, y=530, width=144, height=45, anchor="ne")
+            self.pass_entry = tk.Entry(
+                self.connect_screen,
+                borderwidth=0,
+                font=self.FONT,
+                justify="center",
+                show="*",
+                bg="white",
+                fg="black",
+            )
+            self.pass_entry.place(relx=0.5, y=530, width=144, height=45, anchor="nw")
+            self.pass_entry.bind("<Up>", lambda _: self.user_entry.focus_set())
+            self.pass_entry.bind("<Return>", lambda _: self.connect_sql())
         self.root.mainloop()
 
     def connect_sql(self):
         # Creating dicitonary with connection values
-        connect_info = {
+        self.connect_info = {
             "host": self.host_entry.get(),
             "port": self.port_entry.get(),
             "database": self.db_entry.get(),
@@ -652,13 +682,13 @@ class Monopoly:
         self.db = None
 
         # Displays error if any field is empty
-        if not all(connect_info.values()):
+        if not all(self.connect_info.values()):
             self.connect_label.configure(text="Please fill in all the required fields")
             return
 
         # Connects to MySQL
         try:
-            self.db = mysql.connect(**connect_info)
+            self.db = mysql.connect(**self.connect_info)
             self.cursor = self.db.cursor()
 
             # Creates monopoly table and inserts valyes
@@ -836,6 +866,15 @@ class Monopoly:
             self.select_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
         )
         title.place(relx=0.5, y=50, anchor="n")
+        exit_button = tk.Button(
+            self.select_screen,
+            borderwidth=0,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            image=self.back_image,
+            command=self.menu_screen_display,
+        )
+        exit_button.place(x=25, y=25, anchor="nw")
         player_select = tk.Label(
             self.select_screen,
             borderwidth=0,
