@@ -104,9 +104,9 @@ class Monopoly:
         self.is_connected_sql = False
 
         windll.shcore.SetProcessDpiAwareness(2)
-        self.menu_screen_display()
+        self.title_screen_display()
 
-    def menu_screen_display(self):
+    def title_screen_display(self):
         # Destroying game screen if exists (coming from exiting game)
         try:
             self.screen.destroy()
@@ -116,109 +116,95 @@ class Monopoly:
         # Loading images
         background_image = ImageTk.PhotoImage(file=r"textures\background.jpg")
         dark_bg = ImageTk.PhotoImage(file=r"textures\dark-bg.jpg")
-        exit_bg = ImageTk.PhotoImage(file=r"textures\exit-bg.jpg")
         self.title_image = ImageTk.PhotoImage(file=r"textures\title.png")
 
-        # Creating menu screen
-        self.menu_screen = tk.Canvas(self.root, borderwidth=0)
-        self.menu_screen.pack(fill="both", expand=True)
+        # Creating title screen
+        self.title_screen = tk.Canvas(self.root, borderwidth=0)
+        self.title_screen.pack(fill="both", expand=True)
 
-        # Placing elements on menu screen
-        self.menu_screen.create_image(0, 0, image=background_image, anchor="nw")
-        self.menu_screen.create_image(640, 50, image=self.title_image, anchor="n")
+        # Placing elements on title screen
+        self.title_screen.create_image(0, 0, image=background_image, anchor="nw")
+        self.title_screen.create_image(640, 50, image=self.title_image, anchor="n")
         transparent_label = tk.Label(
-            self.menu_screen,
+            self.title_screen,
             borderwidth=0,
             image=dark_bg,
             text="PRESS ANY BUTTON TO START",
             font=self.BIG_FONT,
-            fg=self.FG_WHITE,
+            fg="white",
             compound="center",
         )
         transparent_label.place(height=50, width=1276, relx=0.5, rely=0.75, anchor="n")
-        exit_button = tk.Button(
-            self.menu_screen,
-            borderwidth=0,
-            image=exit_bg,
-            command=self.root.destroy,
-            activebackground="#4AD9FF",
-        )
-        exit_button.place(height=48, width=48, x=1278, y=2, anchor="ne")
 
         # Sets keybinds to run on press
-        self.menu_screen.bind("<KeyPress>", lambda _: self.title_screen_display())
-        self.menu_screen.focus_set()
+        self.title_screen.bind("<KeyPress>", lambda _: self.menu_screen_display())
+        self.title_screen.focus_set()
 
         self.root.mainloop()
 
-    def title_screen_display(self):
-        # Destroying connection screen if exists (coming from sql connection)
+    def menu_screen_display(self):
+        # Destroying previous screens if exists
         try:
             self.connect_screen.destroy()
         except AttributeError:
             pass
-
-        # Destroying menu screen if exists (coming from main menu)
         try:
-            self.menu_screen.destroy()
+            self.title_screen.destroy()
+        except AttributeError:
+            pass
+        try:
+            self.select_screen.destroy()
+        except AttributeError:
+            pass
+        try:
+            self.load_game_screen.destroy()
         except AttributeError:
             pass
 
-        # Show title screen
-        self.title_screen = tk.Frame(self.root, bg=self.BG_DARK)
-        self.title_screen.pack(fill="both", expand=True)
-
-        # Shows connection message
-        try:
-            if self.show_connected:
-                self.connected_label = tk.Label(
-                    self.title_screen,
-                    borderwidth=0,
-                    text="MySQL Successfully Connected!",
-                    font=self.FONT,
-                    bg=self.BG_DARK,
-                    fg=self.FG_WHITE,
-                )
-                self.connected_label.place(relx=0.5, y=670, anchor="s")
-                self.show_connected = False
-        except AttributeError:
-            pass
-
-        # Importing neccesary images
+        # Loading images
+        self.exit_image = ImageTk.PhotoImage(file=r"textures\exit.png")
+        self.back_image = ImageTk.PhotoImage(file=r"textures\back.png")
         self.button_image = ImageTk.PhotoImage(file=r"textures\button.png")
-        self.save_button = ImageTk.PhotoImage(file=r"textures\save.png")
-        mysql_button_image = ImageTk.PhotoImage(file=r"textures\mysql.png")
+        self.big_button_image = ImageTk.PhotoImage(file=r"textures\big-button.png")
 
-        # Creating elements on title screen
-        saves_select = tk.Label(
-            self.title_screen,
+        # Show menu screen
+        self.menu_screen = tk.Frame(self.root, bg=self.BG_DARK)
+        self.menu_screen.pack(fill="both", expand=True)
+
+        # Creating elements on menu screen
+        title = tk.Label(
+            self.menu_screen,
+            image=self.title_image,
+            borderwidth=0,
+            bg=self.BG_DARK,
+        )
+        title.place(relx=0.5, y=50, anchor="n")
+        menu = tk.Label(
+            self.menu_screen,
             borderwidth=0,
             font=self.BIG_FONT,
-            text="Save Select",
+            text="Main Menu",
             bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
-        saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
-        title = tk.Label(
-            self.title_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
-        )
-        title.place(relx=0.5, y=50, anchor="n")
-        mysql_button = tk.Button(
-            self.title_screen,
+        menu.place(relx=0.5, y=162.5, height=53, anchor="n")
+        exit_button = tk.Button(
+            self.menu_screen,
             borderwidth=0,
-            image=mysql_button_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
-            command=self.connect_sql_screen,
+            image=self.exit_image,
+            command=self.root.destroy,
         )
-        mysql_button.place(x=1255, y=25, anchor="ne")
-        offline_button = tk.Button(
-            self.title_screen,
+        exit_button.place(relx=1, anchor="ne")
+
+        new_game_button = tk.Button(
+            self.menu_screen,
             borderwidth=0,
-            text="PLAY\nWITHOUT\nMySQL",
-            font=self.SMALL_FONT,
+            text="NEW GAME",
+            font=self.BIG_FONT,
             compound="center",
-            image=self.save_button,
+            image=self.big_button_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             fg="black",
@@ -227,14 +213,77 @@ class Monopoly:
                 setattr(self, "save", None),
                 setattr(self, "importing_sql", False),
                 setattr(self, "pushing_sql", False),
-                self.player_select_screen(),
+                self.player_select_screen_display(),
             ),
         )
-        offline_button.place(x=25, y=25, anchor="nw")
+        new_game_button.place(relx=0.5, y=340, anchor="center")
+        load_game_button = tk.Button(
+            self.menu_screen,
+            borderwidth=0,
+            text="LOAD GAME",
+            font=self.BIG_FONT,
+            compound="center",
+            image=self.big_button_image,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            fg="black",
+            activeforeground="black",
+            command=self.load_game_screen_display,
+        )
+        load_game_button.place(relx=0.5, y=440, anchor="center")
+        connect_button = tk.Button(
+            self.menu_screen,
+            borderwidth=0,
+            text="CONNECT",
+            font=self.BIG_FONT,
+            compound="center",
+            image=self.big_button_image,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            fg="black",
+            activeforeground="black",
+            command=self.connect_sql_screen_display,
+        )
+        connect_button.place(relx=0.5, y=540, anchor="center")
+
+    def load_game_screen_display(self):
+        self.menu_screen.destroy()
+
+        # Show load game screen
+        self.load_game_screen = tk.Frame(self.root, bg=self.BG_DARK)
+        self.load_game_screen.pack(fill="both", expand=True)
+        self.save_button = ImageTk.PhotoImage(file=r"textures\save.png")
+
+        # Creating elements on load game screen
+        saves_select = tk.Label(
+            self.load_game_screen,
+            borderwidth=0,
+            font=self.BIG_FONT,
+            text="Load Game",
+            bg=self.BG_DARK,
+            fg=self.FG_WHITE,
+        )
+        saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
+        self.exit_button = tk.Button(
+            self.load_game_screen,
+            borderwidth=0,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            image=self.back_image,
+            command=self.menu_screen_display,
+        )
+        self.exit_button.place(x=25, y=25, anchor="nw")
+        title = tk.Label(
+            self.load_game_screen,
+            image=self.title_image,
+            borderwidth=0,
+            bg=self.BG_DARK,
+        )
+        title.place(relx=0.5, y=50, anchor="n")
 
         # Creating save select displays
         self.save_1_label = tk.Label(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             font=self.FONT,
             text="Save 1",
@@ -243,7 +292,7 @@ class Monopoly:
         )
         self.save_1_label.place(x=260, y=303.5, anchor="center")
         self.save_1_button = tk.Button(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             text="1",
             font=self.BIG_FONT,
@@ -258,7 +307,7 @@ class Monopoly:
         self.save_1_button.place(x=188, y=353.5, anchor="nw")
 
         self.save_2_label = tk.Label(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             font=self.FONT,
             text="Save 2",
@@ -267,7 +316,7 @@ class Monopoly:
         )
         self.save_2_label.place(x=516, y=303.5, anchor="center")
         self.save_2_button = tk.Button(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             text="2",
             font=self.BIG_FONT,
@@ -282,7 +331,7 @@ class Monopoly:
         self.save_2_button.place(x=444, y=353.5, anchor="nw")
 
         self.save_3_label = tk.Label(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             font=self.FONT,
             text="Save 3",
@@ -291,7 +340,7 @@ class Monopoly:
         )
         self.save_3_label.place(x=780, y=303.5, anchor="center")
         self.save_3_button = tk.Button(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             text="3",
             font=self.BIG_FONT,
@@ -306,7 +355,7 @@ class Monopoly:
         self.save_3_button.place(x=708, y=353.5, anchor="nw")
 
         self.save_4_label = tk.Label(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             font=self.FONT,
             text="Save 4",
@@ -315,7 +364,7 @@ class Monopoly:
         )
         self.save_4_label.place(x=1036, y=303.5, anchor="center")
         self.save_4_button = tk.Button(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             text="4",
             font=self.BIG_FONT,
@@ -350,7 +399,7 @@ class Monopoly:
         # Displays error message if mysql not connected
         if not self.is_connected_sql:
             self.not_connected_label = tk.Label(
-                self.title_screen,
+                self.load_game_screen,
                 borderwidth=0,
                 text="MySQL Not Connected",
                 font=self.FONT,
@@ -382,7 +431,7 @@ class Monopoly:
             if self.save_exists():
                 # Displays select and delete button if save file exists
                 self.select_button = tk.Button(
-                    self.title_screen,
+                    self.load_game_screen,
                     borderwidth=0,
                     text="SELECT",
                     font=self.FONT,
@@ -398,7 +447,7 @@ class Monopoly:
                     x=512.5, y=670, width=170, height=62, anchor="s"
                 )
                 self.delete_button = tk.Button(
-                    self.title_screen,
+                    self.load_game_screen,
                     borderwidth=0,
                     text="DELETE",
                     font=self.FONT,
@@ -416,7 +465,7 @@ class Monopoly:
             else:
                 # Displays create button if save doesnt exist
                 self.select_button = tk.Button(
-                    self.title_screen,
+                    self.load_game_screen,
                     borderwidth=0,
                     text="CREATE",
                     font=self.FONT,
@@ -429,7 +478,7 @@ class Monopoly:
                     command=lambda: (
                         setattr(self, "importing_sql", False),
                         setattr(self, "pushing_sql", True),
-                        self.player_select_screen(),
+                        self.player_select_screen_display(),
                     ),
                 )
                 self.select_button.place(
@@ -438,12 +487,12 @@ class Monopoly:
 
         self.root.mainloop()
 
-    def connect_sql_screen(self):
-        # Destroys title screen and creates connection screen
-        self.title_screen.destroy()
+    def connect_sql_screen_display(self):
+        # Destroys menu screen and creates connection screen
+        self.menu_screen.destroy()
         self.connect_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.connect_screen.pack(fill="both", expand=True)
-        back_image = ImageTk.PhotoImage(file=r"textures\back.png")
+        self.back_image = ImageTk.PhotoImage(file=r"textures\back.png")
 
         # Creating elements on connect screen
         self.connect_label = tk.Label(
@@ -480,8 +529,8 @@ class Monopoly:
             borderwidth=0,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
-            image=back_image,
-            command=self.title_screen_display,
+            image=self.back_image,
+            command=self.menu_screen_display,
         )
         self.exit_button.place(x=25, y=25, anchor="nw")
 
@@ -625,8 +674,7 @@ class Monopoly:
 
             # MySQL is now connected
             self.is_connected_sql = True
-            self.show_connected = True
-            self.title_screen_display()
+            self.connect_label.configure(text="MySQL Successfully Connected!")
         except mysql.Error:
             self.is_connected_sql = False
             self.connect_label.configure(text="Error connecting to the database")
@@ -746,7 +794,7 @@ class Monopoly:
         self.delete_button.destroy()
         self.select_button.destroy()
         self.select_button = tk.Button(
-            self.title_screen,
+            self.load_game_screen,
             borderwidth=0,
             text="CREATE",
             font=self.FONT,
@@ -758,14 +806,21 @@ class Monopoly:
             activeforeground="black",
             command=lambda: (
                 setattr(self, "pushing_sql", True),
-                self.player_select_screen(),
+                self.player_select_screen_display(),
             ),
         )
         self.select_button.place(relx=0.5, y=670, width=170, height=62, anchor="s")
 
-    def player_select_screen(self):
-        # Destroy title screen
-        self.title_screen.destroy()
+    def player_select_screen_display(self):
+        # Destroy menu screen
+        try:
+            self.load_game_screen.destroy()
+        except AttributeError:
+            pass
+        try:
+            self.menu_screen.destroy()
+        except AttributeError:
+            pass
 
         # Show select screen
         self.select_screen = tk.Frame(self.root, bg=self.BG_DARK)
@@ -1185,7 +1240,7 @@ class Monopoly:
         except:
             pass
         try:
-            self.title_screen.destroy()
+            self.load_game_screen.destroy()
         except AttributeError:
             pass
 
@@ -1230,7 +1285,6 @@ class Monopoly:
         # Loading some images
         self.close_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
         self.dice_image = ImageTk.PhotoImage(file=r"textures\dice.png")
-        exit_image = ImageTk.PhotoImage(file=r"textures\exit.png")
 
         # Creating exit button
         exit_button = tk.Button(
@@ -1238,11 +1292,11 @@ class Monopoly:
             borderwidth=0,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
-            image=exit_image,
+            image=self.exit_image,
             command=lambda: (
                 setattr(self, "pushing_sql", False),
                 setattr(self, "importing_sql", False),
-                self.menu_screen_display(),
+                self.title_screen_display(),
             )
             if not self.order_label.winfo_exists()
             and self.current_player["type"] == "human"
@@ -1583,11 +1637,7 @@ class Monopoly:
             image=player["token_display_image"],
         )
         self.player_icon.place(x=360, y=275, anchor="n")
-        self.root.after(
-            250, lambda: self.highest_roll(player)
-        ) if player != self.player_1 else self.root.after(
-            750, lambda: self.highest_roll(player)
-        )
+        self.root.after(250, lambda: self.highest_roll(player))
 
     def highest_roll(self, player):
         # Rolls dice and calls next player
