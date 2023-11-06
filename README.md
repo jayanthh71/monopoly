@@ -18,12 +18,12 @@ Can be played against PC also
 
 # Images
 
-![Image 1](https://github.com/jayynut/monopoly/assets/134786265/d9387ae8-b333-4ed6-91c5-08fb6602eaf5)
-![Image 2](https://github.com/jayynut/monopoly/assets/134786265/2f0e3487-a4a6-4f89-af4f-b6ad1aa3ed5e)
-![Image 3](https://github.com/jayynut/monopoly/assets/134786265/74631591-dbef-4f66-8742-373e5f1b75b9)
-![Image 4](https://github.com/jayynut/monopoly/assets/134786265/22a48dd2-8738-442e-96f1-ccf06b954244)
-![Image 5](https://github.com/jayynut/monopoly/assets/134786265/aba761c6-a502-4095-95df-96ce3009bbf8)
-![Image 6](https://github.com/jayynut/monopoly/assets/134786265/19423b9a-f2ae-4205-ad2d-c88d0bc2bd08)
-![Image 7](https://github.com/jayynut/monopoly/assets/134786265/13b8b267-6fbd-404b-ad7b-5e0cc5b62c36)
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/f13f7425-c6a3-4100-bac6-6cdc60e28352">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/b26f5466-2c4f-40d0-b307-21b6d3a4a654">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/9df8e66d-3223-443a-848c-433d17ab8e45">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/8f8eef57-5458-4a1a-9dc0-d394247112a7">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/63563d05-2e75-4cc2-b287-8e699dcb13da">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/afb37420-f0b6-41f3-a262-df527bb1bf79">
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/61f5ec2c-16b6-48a5-b6c8-1fc71f10e914">
 
 enjoy playing :)))
