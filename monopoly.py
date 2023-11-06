@@ -93,11 +93,10 @@ class Monopoly:
         }
 
         # Creating colour constants
-        self.FG_WHITE = "#E4E4EB"
+        self.FG_WHITE = "#B1CDEC"
         self.BG_DARK = "#1D1D27"
         self.BG_LIGHT = "#B9CEB5"
         self.BG_BOARD = "#CCE3C7"
-        self.BG_BUTTON = "#2C2C38"
 
         # Setting default values
         self.pushing_sql = False
@@ -826,7 +825,6 @@ class Monopoly:
         )
         self.player_1_entry.place(x=252, y=303.5, width=144, height=45, anchor="center")
         self.player_1_entry.insert(0, "Player 1")
-        self.player_1_entry.bind("<Right>", lambda _: self.player_2_entry.focus_set())
         self.player_1_entry.bind(
             "<FocusIn>",
             lambda _: (
@@ -895,8 +893,6 @@ class Monopoly:
         )
         self.player_2_entry.place(x=508, y=303.5, width=144, height=45, anchor="center")
         self.player_2_entry.insert(0, "Player 2")
-        self.player_2_entry.bind("<Left>", lambda _: self.player_1_entry.focus_set())
-        self.player_2_entry.bind("<Right>", lambda _: self.player_3_entry.focus_set())
         self.player_2_entry.bind(
             "<FocusIn>",
             lambda _: (
@@ -968,8 +964,6 @@ class Monopoly:
         )
         self.player_3_entry.place(x=772, y=303.5, width=144, height=45, anchor="center")
         self.player_3_entry.insert(0, "Player 3")
-        self.player_3_entry.bind("<Left>", lambda _: self.player_2_entry.focus_set())
-        self.player_3_entry.bind("<Right>", lambda _: self.player_4_entry.focus_set())
         self.player_3_entry.bind(
             "<FocusIn>",
             lambda _: (
@@ -1043,7 +1037,6 @@ class Monopoly:
             x=1028, y=303.5, width=144, height=45, anchor="center"
         )
         self.player_4_entry.insert(0, "Player 4")
-        self.player_4_entry.bind("<Left>", lambda _: self.player_3_entry.focus_set())
         self.player_4_entry.bind(
             "<FocusIn>",
             lambda _: (
@@ -1225,7 +1218,7 @@ class Monopoly:
         self.board.bind("<Button-1>", self.display_property_info)
 
         button_background_image = ImageTk.PhotoImage(
-            Image.new("RGB", (560, 720), self.BG_BUTTON)
+            Image.new("RGB", (560, 720), self.BG_DARK)
         )
         button_background = tk.Label(
             self.screen,
@@ -1243,17 +1236,16 @@ class Monopoly:
         exit_button = tk.Button(
             self.screen,
             borderwidth=0,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             image=exit_image,
             command=lambda: (
                 setattr(self, "pushing_sql", False),
                 setattr(self, "importing_sql", False),
                 self.menu_screen_display(),
             )
-            if self.order_label.winfo_exists()
-            and self.dice_button.winfo_exists()
-            or self.current_player["type"] == "human"
+            if not self.order_label.winfo_exists()
+            and self.current_player["type"] == "human"
             else None,
         )
         exit_button.place(relx=1, anchor="ne")
@@ -1348,7 +1340,7 @@ class Monopoly:
             self.screen,
             image=self.player_1["token_display_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.p1_token_display.place(x=871, y=140, anchor="s")
         p1_button = tk.Button(
@@ -1357,8 +1349,8 @@ class Monopoly:
             font=self.FONT,
             compound="center",
             image=self.button_image,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             fg="black",
             activeforeground="black",
             borderwidth=0,
@@ -1369,7 +1361,7 @@ class Monopoly:
             self.screen,
             image=self.player_1["token_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.player_1_money_token.place(x=775, y=500, anchor="nw")
         self.player_1_money = tk.Label(
@@ -1377,7 +1369,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.FONT,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
         self.player_1_money.place(x=830, y=508, anchor="nw")
@@ -1386,7 +1378,7 @@ class Monopoly:
             self.screen,
             image=self.player_2["token_display_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.p2_token_display.place(x=1139, y=140, anchor="s")
         p2_button = tk.Button(
@@ -1395,8 +1387,8 @@ class Monopoly:
             font=self.FONT,
             compound="center",
             image=self.button_image,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             fg="black",
             activeforeground="black",
             borderwidth=0,
@@ -1407,7 +1399,7 @@ class Monopoly:
             self.screen,
             image=self.player_2["token_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.player_2_money_token.place(x=775, y=548, anchor="nw")
         self.player_2_money = tk.Label(
@@ -1415,7 +1407,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.FONT,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
         self.player_2_money.place(x=830, y=556, anchor="nw")
@@ -1424,7 +1416,7 @@ class Monopoly:
             self.screen,
             image=self.player_3["token_display_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.p3_token_display.place(x=871, y=350, anchor="s")
         p3_button = tk.Button(
@@ -1433,8 +1425,8 @@ class Monopoly:
             font=self.FONT,
             compound="center",
             image=self.button_image,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             fg="black",
             activeforeground="black",
             borderwidth=0,
@@ -1445,7 +1437,7 @@ class Monopoly:
             self.screen,
             image=self.player_3["token_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.player_3_money_token.place(x=775, y=596, anchor="nw")
         self.player_3_money = tk.Label(
@@ -1453,7 +1445,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.FONT,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
         self.player_3_money.place(x=830, y=604, anchor="nw")
@@ -1462,7 +1454,7 @@ class Monopoly:
             self.screen,
             image=self.player_4["token_display_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.p4_token_display.place(x=1139, y=350, anchor="s")
         p4_button = tk.Button(
@@ -1471,8 +1463,8 @@ class Monopoly:
             font=self.FONT,
             compound="center",
             image=self.button_image,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             fg="black",
             activeforeground="black",
             borderwidth=0,
@@ -1483,7 +1475,7 @@ class Monopoly:
             self.screen,
             image=self.player_4["token_image"],
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
         )
         self.player_4_money_token.place(x=775, y=644, anchor="nw")
         self.player_4_money = tk.Label(
@@ -1491,7 +1483,7 @@ class Monopoly:
             text=": $1500",
             borderwidth=0,
             font=self.FONT,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
         self.player_4_money.place(x=830, y=652, anchor="nw")
@@ -1591,21 +1583,11 @@ class Monopoly:
             image=player["token_display_image"],
         )
         self.player_icon.place(x=360, y=275, anchor="n")
-        if player["type"] == "human":
-            self.dice_button = tk.Button(
-                self.screen,
-                image=self.dice_image,
-                borderwidth=0,
-                bg=self.BG_BOARD,
-                activebackground=self.BG_BOARD,
-                command=lambda: (
-                    self.dice_button.destroy(),
-                    self.highest_roll(player),
-                ),
-            )
-            self.dice_button.place(x=360, y=440, anchor="n")
-        else:
-            self.root.after(250, lambda: self.highest_roll(player))
+        self.root.after(
+            250, lambda: self.highest_roll(player)
+        ) if player != self.player_1 else self.root.after(
+            750, lambda: self.highest_roll(player)
+        )
 
     def highest_roll(self, player):
         # Rolls dice and calls next player
@@ -1808,7 +1790,7 @@ class Monopoly:
             text=f"{self.current_player['name']}'s Turn",
             font=self.BIG_FONT,
             borderwidth=0,
-            bg=self.BG_BUTTON,
+            bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
         current_player_display.place(
@@ -1821,8 +1803,8 @@ class Monopoly:
                 self.screen,
                 image=self.dice_image,
                 borderwidth=0,
-                bg=self.BG_BUTTON,
-                activebackground=self.BG_BUTTON,
+                bg=self.BG_DARK,
+                activebackground=self.BG_DARK,
                 command=lambda: (
                     self.end_turn_display(),
                     self.player_turn(),
@@ -1842,8 +1824,8 @@ class Monopoly:
             borderwidth=0,
             compound="center",
             image=self.button_image,
-            bg=self.BG_BUTTON,
-            activebackground=self.BG_BUTTON,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
             fg="black",
             activeforeground="black",
             command=lambda: (self.end_turn_func(), self.end_turn_button.destroy()),
@@ -1938,8 +1920,8 @@ class Monopoly:
                             text=f"BUY: ${self.current_player_location_property['price']}",
                             compound="center",
                             image=self.button_image,
-                            bg=self.BG_BUTTON,
-                            activebackground=self.BG_BUTTON,
+                            bg=self.BG_DARK,
+                            activebackground=self.BG_DARK,
                             fg="black",
                             activeforeground="black",
                             borderwidth=0,
@@ -2002,8 +1984,8 @@ class Monopoly:
                     text="FINE: $50",
                     compound="center",
                     image=self.button_image,
-                    bg=self.BG_BUTTON,
-                    activebackground=self.BG_BUTTON,
+                    bg=self.BG_DARK,
+                    activebackground=self.BG_DARK,
                     fg="black",
                     activeforeground="black",
                     borderwidth=0,
