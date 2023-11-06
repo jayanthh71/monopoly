@@ -93,10 +93,11 @@ class Monopoly:
         }
 
         # Creating colour constants
-        self.BG_DARK = "#2A363B"
+        self.FG_WHITE = "#E4E4EB"
+        self.BG_DARK = "#1D1D27"
         self.BG_LIGHT = "#B9CEB5"
         self.BG_BOARD = "#CCE3C7"
-        self.BG_BUTTON = "#495D66"
+        self.BG_BUTTON = "#2C2C38"
 
         # Setting default values
         self.pushing_sql = False
@@ -132,7 +133,7 @@ class Monopoly:
             image=dark_bg,
             text="PRESS ANY BUTTON TO START",
             font=self.BIG_FONT,
-            fg="white",
+            fg=self.FG_WHITE,
             compound="center",
         )
         transparent_label.place(height=50, width=1276, relx=0.5, rely=0.75, anchor="n")
@@ -177,7 +178,7 @@ class Monopoly:
                     text="MySQL Successfully Connected!",
                     font=self.FONT,
                     bg=self.BG_DARK,
-                    fg="white",
+                    fg=self.FG_WHITE,
                 )
                 self.connected_label.place(relx=0.5, y=670, anchor="s")
                 self.show_connected = False
@@ -196,7 +197,7 @@ class Monopoly:
             font=self.BIG_FONT,
             text="Save Select",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
         title = tk.Label(
@@ -239,7 +240,7 @@ class Monopoly:
             font=self.FONT,
             text="Save 1",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         self.save_1_label.place(x=260, y=303.5, anchor="center")
         self.save_1_button = tk.Button(
@@ -263,7 +264,7 @@ class Monopoly:
             font=self.FONT,
             text="Save 2",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         self.save_2_label.place(x=516, y=303.5, anchor="center")
         self.save_2_button = tk.Button(
@@ -287,7 +288,7 @@ class Monopoly:
             font=self.FONT,
             text="Save 3",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         self.save_3_label.place(x=780, y=303.5, anchor="center")
         self.save_3_button = tk.Button(
@@ -311,7 +312,7 @@ class Monopoly:
             font=self.FONT,
             text="Save 4",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         self.save_4_label.place(x=1036, y=303.5, anchor="center")
         self.save_4_button = tk.Button(
@@ -355,7 +356,7 @@ class Monopoly:
                 text="MySQL Not Connected",
                 font=self.FONT,
                 bg=self.BG_DARK,
-                fg="white",
+                fg=self.FG_WHITE,
             )
             self.not_connected_label.place(relx=0.5, y=670, anchor="s")
         else:
@@ -452,7 +453,7 @@ class Monopoly:
             font=self.BIG_FONT,
             text="MySQL Connection",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         self.connect_label.place(relx=0.5, y=150, height=53, anchor="n")
         title = tk.Label(
@@ -492,7 +493,7 @@ class Monopoly:
             font=self.FONT,
             text="Host:",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         host_label.place(relx=0.5, y=230, width=144, height=45, anchor="ne")
         self.host_entry = tk.Entry(
@@ -512,7 +513,7 @@ class Monopoly:
             font=self.FONT,
             text="Port:",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         port_label.place(relx=0.5, y=305, width=144, height=45, anchor="ne")
         self.port_entry = tk.Entry(
@@ -533,7 +534,7 @@ class Monopoly:
             font=self.FONT,
             text="Database:",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         db_label.place(relx=0.475, y=380, width=144, height=45, anchor="ne")
         self.db_entry = tk.Entry(
@@ -553,7 +554,7 @@ class Monopoly:
             font=self.FONT,
             text="Username:",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         user_label.place(relx=0.475, y=455, width=144, height=45, anchor="ne")
         self.user_entry = tk.Entry(
@@ -574,7 +575,7 @@ class Monopoly:
             font=self.FONT,
             text="Password:",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         pass_label.place(relx=0.475, y=530, width=144, height=45, anchor="ne")
         self.pass_entry = tk.Entry(
@@ -787,7 +788,7 @@ class Monopoly:
             font=self.BIG_FONT,
             text="Player Select",
             bg=self.BG_DARK,
-            fg="white",
+            fg=self.FG_WHITE,
         )
         player_select.place(x=532, y=162.5, width=216, height=53, anchor="nw")
         start_button = tk.Button(
@@ -853,7 +854,7 @@ class Monopoly:
             compound="center",
             font=self.SMALL_FONT,
             bg=self.BG_DARK,
-            fg="black"
+            fg="black",
         )
         self.player_1_type_label.place(x=252, y=393.5, anchor="s")
         player_1_left = tk.Button(
@@ -1167,10 +1168,26 @@ class Monopoly:
     def start_game(self):
         # Assigning names to players
         try:
-            self.player_1["name"] = self.player_1_entry.get() if self.player_1_entry.get() != "" else "Player 1"
-            self.player_2["name"] = self.player_2_entry.get() if self.player_2_entry.get() != "" else "Player 2"
-            self.player_3["name"] = self.player_3_entry.get() if self.player_3_entry.get() != "" else "Player 3"
-            self.player_4["name"] = self.player_4_entry.get() if self.player_4_entry.get() != "" else "Player 4"
+            self.player_1["name"] = (
+                self.player_1_entry.get()
+                if self.player_1_entry.get() != ""
+                else "Player 1"
+            )
+            self.player_2["name"] = (
+                self.player_2_entry.get()
+                if self.player_2_entry.get() != ""
+                else "Player 2"
+            )
+            self.player_3["name"] = (
+                self.player_3_entry.get()
+                if self.player_3_entry.get() != ""
+                else "Player 3"
+            )
+            self.player_4["name"] = (
+                self.player_4_entry.get()
+                if self.player_4_entry.get() != ""
+                else "Player 4"
+            )
             self.select_screen.destroy()
         except:
             pass
@@ -1205,6 +1222,8 @@ class Monopoly:
         self.board = tk.Canvas(self.screen, borderwidth=0, highlightthickness=0)
         self.board.place(width=720, height=717, anchor="nw")
         self.board.create_image(0, 0, image=board_image, anchor="nw")
+        self.board.bind("<Button-1>", self.display_property_info)
+
         button_background_image = ImageTk.PhotoImage(
             Image.new("RGB", (560, 720), self.BG_BUTTON)
         )
@@ -1216,7 +1235,7 @@ class Monopoly:
         button_background.place(relx=1, rely=0, anchor="ne")
 
         # Loading some images
-        self.close_player_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
+        self.close_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
         self.dice_image = ImageTk.PhotoImage(file=r"textures\dice.png")
         exit_image = ImageTk.PhotoImage(file=r"textures\exit.png")
 
@@ -1232,7 +1251,9 @@ class Monopoly:
                 setattr(self, "importing_sql", False),
                 self.menu_screen_display(),
             )
-            if self.current_player["type"] == "human"
+            if self.order_label.winfo_exists()
+            and self.dice_button.winfo_exists()
+            or self.current_player["type"] == "human"
             else None,
         )
         exit_button.place(relx=1, anchor="ne")
@@ -1299,15 +1320,14 @@ class Monopoly:
                 property_instance["colour"] = property_info[2]
                 property_instance["coords"] = eval(property_info[3])
 
-        #Creating property card instances and assigning a property
+        # Creating property card instances and assigning a property
         self.property_cards = {}
-        with open("propertycards.csv","r",  newline="") as file:
+        with open("propertycards.csv", "r", newline="") as file:
             for property_area in csv.reader(file):
                 property_card_info = {}
                 self.property_cards[eval(property_area[0])] = property_card_info
                 property_card_info["location"] = property_area[1]
                 property_card_info["colour"] = property_area[2]
-
 
         # Setting extra info if it is being imported
         if self.importing_sql:
@@ -1358,7 +1378,7 @@ class Monopoly:
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BUTTON,
-            fg="black"
+            fg=self.FG_WHITE,
         )
         self.player_1_money.place(x=830, y=508, anchor="nw")
 
@@ -1396,7 +1416,7 @@ class Monopoly:
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BUTTON,
-            fg="black"
+            fg=self.FG_WHITE,
         )
         self.player_2_money.place(x=830, y=556, anchor="nw")
 
@@ -1434,7 +1454,7 @@ class Monopoly:
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BUTTON,
-            fg="black"
+            fg=self.FG_WHITE,
         )
         self.player_3_money.place(x=830, y=604, anchor="nw")
 
@@ -1472,7 +1492,7 @@ class Monopoly:
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BUTTON,
-            fg="black"
+            fg=self.FG_WHITE,
         )
         self.player_4_money.place(x=830, y=652, anchor="nw")
 
@@ -1498,11 +1518,11 @@ class Monopoly:
                 borderwidth=0,
                 font=self.FONT,
                 bg=self.BG_BOARD,
-                fg="black"
+                fg="black",
             )
             self.order_label.place(x=360, y=145, anchor="n")
 
-            self.current_player = {"type":"npc"}
+            self.current_player = {"type": "npc"}
             self.play_order_list = itertools.cycle(
                 (self.player_2, self.player_3, self.player_4)
             )
@@ -1561,7 +1581,7 @@ class Monopoly:
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BOARD,
-            fg="black"
+            fg="black",
         )
         self.player_label.place(x=360, y=250, anchor="s")
         self.player_icon = tk.Label(
@@ -1572,18 +1592,18 @@ class Monopoly:
         )
         self.player_icon.place(x=360, y=275, anchor="n")
         if player["type"] == "human":
-            dice_button = tk.Button(
+            self.dice_button = tk.Button(
                 self.screen,
                 image=self.dice_image,
                 borderwidth=0,
                 bg=self.BG_BOARD,
                 activebackground=self.BG_BOARD,
                 command=lambda: (
-                    dice_button.destroy(),
+                    self.dice_button.destroy(),
                     self.highest_roll(player),
                 ),
             )
-            dice_button.place(x=360, y=440, anchor="n")
+            self.dice_button.place(x=360, y=440, anchor="n")
         else:
             self.root.after(250, lambda: self.highest_roll(player))
 
@@ -1639,11 +1659,11 @@ class Monopoly:
         # Displays final player order
         high_name = tk.Label(
             self.screen,
-            text=f"{highest_player["name"]} goes first",
+            text=f"{highest_player['name']} goes first",
             borderwidth=0,
             font=self.FONT,
             bg=self.BG_BOARD,
-            fg="black"
+            fg="black",
         )
         high_name.place(x=360, y=275, anchor="s")
         high_icon = tk.Label(
@@ -1670,10 +1690,19 @@ class Monopoly:
         )
 
     def display_player_info(self, player):
+        # Does not show anything if game not started
+        if self.order_label.winfo_exists():
+            return
+
+        # Destroys property card if already open
+        try:
+            self.property_card.destroy()
+        except AttributeError:
+            pass
+
         # Try destroying info screen if already exists
         try:
             self.player_info.destroy()
-            self.close_player_button.destroy()
         except AttributeError:
             pass
 
@@ -1687,23 +1716,87 @@ class Monopoly:
             borderwidth=0,
             font=self.SMALL_FONT,
             bg=self.BG_LIGHT,
-            fg="black"
+            fg="black",
         )
         self.player_info.place(height=280, width=250, x=360, y=360, anchor="center")
 
         # Shows player info close button
-        self.close_player_button = tk.Button(
-            self.screen,
+        close_player_button = tk.Button(
+            self.player_info,
             borderwidth=0,
-            image=self.close_player_button_image,
+            image=self.close_button_image,
             bg=self.BG_LIGHT,
             activebackground=self.BG_LIGHT,
-            command=lambda: (
-                self.player_info.destroy(),
-                self.close_player_button.destroy(),
-            ),
+            command=self.player_info.destroy,
         )
-        self.close_player_button.place(x=460, y=245, anchor="center")
+        close_player_button.place(x=240, y=10, anchor="ne")
+
+    def display_property_info(self, click):
+        # Destroys property card if already open
+        try:
+            self.property_card.destroy()
+        except AttributeError:
+            pass
+
+        for (x1, y1, x2, y2), property_info in self.property_cards.items():
+            if x1 <= click.x <= x2 and y1 >= click.y >= y2:
+                # Does not show anything if game not started
+                if self.order_label.winfo_exists():
+                    return
+
+                # Try destroying info screen if already exists
+                try:
+                    self.player_info.destroy()
+                except AttributeError:
+                    pass
+
+                clicked_property = self.property_locations[
+                    int(property_info["location"])
+                ]
+
+                # Creates property card
+                self.property_card = tk.Label(
+                    self.screen, borderwidth=0, bg=self.BG_LIGHT
+                )
+                self.property_card.place(
+                    height=280, width=250, x=360, y=360, anchor="center"
+                )
+                property_title = tk.Label(
+                    self.property_card,
+                    borderwidth=0,
+                    text="\n".join(
+                        word.upper() for word in clicked_property["name"].split(" ")
+                    ),
+                    font=self.SMALL_FONT,
+                    bg=property_info["colour"],
+                    fg="black",
+                )
+                property_title.place(relx=0.5, y=10, anchor="n", height=80, width=230)
+
+                # Setting rent info
+                if clicked_property["colour"] == "Utility":
+                    property_text = f"Properties            RENT\n\n1    {12*'-'}     4 x die\n\n 2    {12*'-'}    10 x die"
+
+                elif clicked_property["colour"] == "Station":
+                    property_title.config(fg=self.FG_WHITE)
+                    property_text = f"Properties            RENT\n\n1     {12*'-'}    75\n 2    {12*'-'}    100\n 3    {12*'-'}    125\n 4    {12*'-'}    150"
+
+                elif clicked_property["colour"] in ("Brown", "Dark Blue"):
+                    property_text = f"Properties            RENT\n\n1    {12*'-'}     {clicked_property['price']//2}\n\n2    {12*'-'}    {clicked_property['price']}"
+
+                else:
+                    property_text = f"Properties            RENT\n\n1     {12*'-'}    {clicked_property['price']//2}\n\n 2    {12*'-'}    {clicked_property['price']}\n\n 3    {12*'-'}    {clicked_property['price']*2}"
+
+                # Displaying rent info
+                property_text_label = tk.Label(
+                    self.property_card,
+                    borderwidth=0,
+                    text=property_text,
+                    font=self.SMALL_FONT,
+                    bg=self.BG_LIGHT,
+                    fg="black",
+                )
+                property_text_label.place(relx=0.5, y=100, anchor="n")
 
     def player_turn_init(self, player):
         self.current_player = player
@@ -1716,7 +1809,7 @@ class Monopoly:
             font=self.BIG_FONT,
             borderwidth=0,
             bg=self.BG_BUTTON,
-            fg="black"
+            fg=self.FG_WHITE,
         )
         current_player_display.place(
             width=560, height=60, x=1000, y=460, anchor="center"
@@ -1724,7 +1817,7 @@ class Monopoly:
 
         if player["type"] == "human":
             # Setting up dice and end turn button for current player
-            dice_button = tk.Button(
+            self.dice_button = tk.Button(
                 self.screen,
                 image=self.dice_image,
                 borderwidth=0,
@@ -1733,10 +1826,10 @@ class Monopoly:
                 command=lambda: (
                     self.end_turn_display(),
                     self.player_turn(),
-                    dice_button.destroy(),
+                    self.dice_button.destroy(),
                 ),
             )
-            dice_button.place(x=1032, y=532, anchor="nw")
+            self.dice_button.place(x=1032, y=532, anchor="nw")
         else:
             self.root.after(1000, self.player_turn)
 
@@ -1894,7 +1987,10 @@ class Monopoly:
             )
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
             self.action_display.place(x=360, y=260, anchor="n")
@@ -1974,7 +2070,10 @@ class Monopoly:
             )
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
             self.action_display.place(x=360, y=260, anchor="n")
@@ -2031,7 +2130,10 @@ class Monopoly:
             )
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
             self.action_display.place(x=360, y=260, anchor="n")
@@ -2050,7 +2152,10 @@ class Monopoly:
             )
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
             self.action_display.place(x=360, y=260, anchor="n")
@@ -2061,49 +2166,56 @@ class Monopoly:
         for title in self.current_player_location_property["owned_by"]["properties"]:
             if title["colour"] == "Utility":
                 utility_count += 1
-        if utility_count == 1:
-            self.current_player["money"] -= self.roll_no * 4
-            if not self.end_check():
-                self.current_player_location_property["owned_by"]["money"] += (
-                    self.roll_no * 4
-                )
-                self.update_money()
-                self.action_display = tk.Label(
-                    self.screen,
-                    text=f"{self.current_player['name']} Paid ${self.roll_no*4} to {self.current_player_location_property['owned_by']['name']}",
-                    borderwidth=0,
-                    bg=self.BG_BOARD,
-                    fg="black",
-                    font=self.SMALL_FONT,
-                )
-                try:
-                    self.player_info.destroy()
-                    self.close_player_button.destroy()
-                except AttributeError:
-                    pass
-                self.action_display.place(x=360, y=260, anchor="n")
+        match utility_count:
+            case 1:
+                self.current_player["money"] -= self.roll_no * 4
+                if not self.end_check():
+                    self.current_player_location_property["owned_by"]["money"] += (
+                        self.roll_no * 4
+                    )
+                    self.update_money()
+                    self.action_display = tk.Label(
+                        self.screen,
+                        text=f"{self.current_player['name']} Paid ${self.roll_no*4} to {self.current_player_location_property['owned_by']['name']}",
+                        borderwidth=0,
+                        bg=self.BG_BOARD,
+                        fg="black",
+                        font=self.SMALL_FONT,
+                    )
+                    try:
+                        self.player_info.destroy()
+                    except AttributeError:
+                        pass
+                    try:
+                        self.property_card.destroy()
+                    except AttributeError:
+                        pass
+                    self.action_display.place(x=360, y=260, anchor="n")
 
-        elif utility_count == 2:
-            self.current_player["money"] -= self.roll_no * 10
-            if not self.end_check():
-                self.current_player_location_property["owned_by"]["money"] += (
-                    self.roll_no * 10
-                )
-                self.update_money()
-                self.action_display = tk.Label(
-                    self.screen,
-                    text=f"{self.current_player['name']} Paid ${self.roll_no*10} to {self.current_player_location_property['owned_by']['name']}",
-                    borderwidth=0,
-                    bg=self.BG_BOARD,
-                    fg="black",
-                    font=self.SMALL_FONT,
-                )
-                try:
-                    self.player_info.destroy()
-                    self.close_player_button.destroy()
-                except AttributeError:
-                    pass
-                self.action_display.place(x=360, y=260, anchor="n")
+            case 2:
+                self.current_player["money"] -= self.roll_no * 10
+                if not self.end_check():
+                    self.current_player_location_property["owned_by"]["money"] += (
+                        self.roll_no * 10
+                    )
+                    self.update_money()
+                    self.action_display = tk.Label(
+                        self.screen,
+                        text=f"{self.current_player['name']} Paid ${self.roll_no*10} to {self.current_player_location_property['owned_by']['name']}",
+                        borderwidth=0,
+                        bg=self.BG_BOARD,
+                        fg="black",
+                        font=self.SMALL_FONT,
+                    )
+                    try:
+                        self.player_info.destroy()
+                    except AttributeError:
+                        pass
+                    try:
+                        self.property_card.destroy()
+                    except AttributeError:
+                        pass
+                    self.action_display.place(x=360, y=260, anchor="n")
 
     def pay_fine(self):
         # Pays fine for jailed players
@@ -2120,7 +2232,10 @@ class Monopoly:
             )
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
             self.action_display.place(x=360, y=260, anchor="n")
@@ -2174,7 +2289,10 @@ class Monopoly:
         if not self.end_check():
             try:
                 self.player_info.destroy()
-                self.close_player_button.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.property_card.destroy()
             except AttributeError:
                 pass
 
