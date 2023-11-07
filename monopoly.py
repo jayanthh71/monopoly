@@ -1792,28 +1792,43 @@ class Monopoly:
                 property_title = tk.Label(
                     self.property_card,
                     borderwidth=0,
-                    text="\n".join(
-                        word.upper() for word in clicked_property["name"].split(" ")
-                    ),
+                    text=clicked_property["name"].upper(),
                     font=self.SMALL_FONT,
                     bg=property_info["colour"],
                     fg="black",
                 )
                 property_title.place(relx=0.5, y=10, anchor="n", height=80, width=230)
 
+                if clicked_property["name"] == "The Angel Islington":
+                    property_title.config(text="THE ANGEL,\nISLINGTON")
+                elif (
+                    clicked_property["name"] == "Northumberland Avenue"
+                    or clicked_property["name"] == "Marlborough Street"
+                ):
+                    property_title.config(
+                        text="\n".join(clicked_property["name"].split()).upper()
+                    )
+                elif clicked_property["colour"] == "Station":
+                    property_title.config(
+                        text=(
+                            " ".join(clicked_property["name"].split()[:-1])
+                            + "\nSTATION"
+                        ).upper()
+                    )
+
                 # Setting rent info
                 if clicked_property["colour"] == "Utility":
-                    property_text = f"Properties            RENT\n\n1    {12*'-'}     4 x die\n\n 2    {12*'-'}    10 x die"
+                    property_text = f"Properties{12*' '}RENT\n\n1    {12*'-'}     4 x die\n\n 2    {12*'-'}    10 x die"
 
                 elif clicked_property["colour"] == "Station":
-                    property_title.config(fg=self.FG_WHITE)
-                    property_text = f"Properties            RENT\n\n1     {12*'-'}    75\n 2    {12*'-'}    100\n 3    {12*'-'}    125\n 4    {12*'-'}    150"
+                    property_title.config(fg="white")
+                    property_text = f"Properties{12*' '}RENT\n\n1     {12*'-'}    75\n 2    {12*'-'}    100\n 3    {12*'-'}    125\n 4    {12*'-'}    150"
 
                 elif clicked_property["colour"] in ("Brown", "Dark Blue"):
-                    property_text = f"Properties            RENT\n\n1    {12*'-'}     {clicked_property['price']//2}\n\n2    {12*'-'}    {clicked_property['price']}"
+                    property_text = f"Properties{12*' '}RENT\n\n1    {12*'-'}     {clicked_property['price']//2}\n\n2    {12*'-'}    {clicked_property['price']}"
 
                 else:
-                    property_text = f"Properties            RENT\n\n1     {12*'-'}    {clicked_property['price']//2}\n\n 2    {12*'-'}    {clicked_property['price']}\n\n 3    {12*'-'}    {clicked_property['price']*2}"
+                    property_text = f"Properties{12*' '}RENT\n\n1     {12*'-'}    {clicked_property['price']//2}\n\n 2    {12*'-'}    {clicked_property['price']}\n\n 3    {12*'-'}    {clicked_property['price']*2}"
 
                 # Displaying rent info
                 property_text_label = tk.Label(
