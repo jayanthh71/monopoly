@@ -75,21 +75,21 @@ class Monopoly:
             "money": 1500,
             "properties": [],
             "turn": False,
-            "type": "npc",
+            "type": "pc",
         }
         self.player_3 = {
             "location": 1,
             "money": 1500,
             "properties": [],
             "turn": False,
-            "type": "npc",
+            "type": "pc",
         }
         self.player_4 = {
             "location": 1,
             "money": 1500,
             "properties": [],
             "turn": False,
-            "type": "npc",
+            "type": "pc",
         }
 
         # Creating colour constants
@@ -107,12 +107,6 @@ class Monopoly:
         self.title_screen_display()
 
     def title_screen_display(self):
-        # Destroying game screen if exists (coming from exiting game)
-        try:
-            self.screen.destroy()
-        except AttributeError:
-            pass
-
         # Loading images
         background_image = ImageTk.PhotoImage(file=r"textures\background.jpg")
         dark_bg = ImageTk.PhotoImage(file=r"textures\dark-bg.jpg")
@@ -137,30 +131,15 @@ class Monopoly:
         transparent_label.place(height=50, width=1276, relx=0.5, rely=0.75, anchor="n")
 
         # Sets keybinds to run on press
-        self.title_screen.bind("<KeyPress>", lambda _: self.menu_screen_display())
+        self.title_screen.bind(
+            "<KeyPress>",
+            lambda _: (self.title_screen.destroy(), self.menu_screen_display()),
+        )
         self.title_screen.focus_set()
 
         self.root.mainloop()
 
     def menu_screen_display(self):
-        # Destroying previous screens if exists
-        try:
-            self.connect_screen.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.title_screen.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.select_screen.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.load_game_screen.destroy()
-        except AttributeError:
-            pass
-
         # Loading images
         self.exit_image = ImageTk.PhotoImage(file=r"textures\exit.png")
         self.back_image = ImageTk.PhotoImage(file=r"textures\back.png")
@@ -213,6 +192,7 @@ class Monopoly:
                 setattr(self, "save", None),
                 setattr(self, "importing_sql", False),
                 setattr(self, "pushing_sql", False),
+                self.menu_screen.destroy(),
                 self.player_select_screen_display(),
             ),
         )
@@ -264,15 +244,18 @@ class Monopoly:
             fg=self.FG_WHITE,
         )
         saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
-        exit_button = tk.Button(
+        back_button = tk.Button(
             self.load_game_screen,
             borderwidth=0,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             image=self.back_image,
-            command=self.menu_screen_display,
+            command=lambda: (
+                self.load_game_screen.destroy(),
+                self.menu_screen_display(),
+            ),
         )
-        exit_button.place(x=25, y=25, anchor="nw")
+        back_button.place(x=25, y=25, anchor="nw")
         title = tk.Label(
             self.load_game_screen,
             image=self.title_image,
@@ -391,10 +374,6 @@ class Monopoly:
             self.not_connected_label.destroy()
         except AttributeError:
             pass
-        try:
-            self.connected_label.destroy()
-        except AttributeError:
-            pass
 
         # Displays error message if mysql not connected
         if not self.is_connected_sql:
@@ -478,6 +457,7 @@ class Monopoly:
                     command=lambda: (
                         setattr(self, "importing_sql", False),
                         setattr(self, "pushing_sql", True),
+                        self.load_game_screen.destroy(),
                         self.player_select_screen_display(),
                     ),
                 )
@@ -492,7 +472,6 @@ class Monopoly:
         self.menu_screen.destroy()
         self.connect_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.connect_screen.pack(fill="both", expand=True)
-        self.back_image = ImageTk.PhotoImage(file=r"textures\back.png")
 
         # Creating elements on connect screen
         self.connect_label = tk.Label(
@@ -504,6 +483,15 @@ class Monopoly:
             fg=self.FG_WHITE,
         )
         self.connect_label.place(relx=0.5, y=150, height=53, anchor="n")
+        back_button = tk.Button(
+            self.connect_screen,
+            borderwidth=0,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            image=self.back_image,
+            command=lambda: (self.connect_screen.destroy(), self.menu_screen_display()),
+        )
+        back_button.place(x=25, y=25, anchor="nw")
         title = tk.Label(
             self.connect_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
         )
@@ -554,15 +542,6 @@ class Monopoly:
             save_connection_button.place(
                 relx=0.5, y=670, width=170, height=62, anchor="s"
             )
-            exit_button = tk.Button(
-                self.connect_screen,
-                borderwidth=0,
-                bg=self.BG_DARK,
-                activebackground=self.BG_DARK,
-                image=self.back_image,
-                command=self.menu_screen_display,
-            )
-            exit_button.place(x=25, y=25, anchor="nw")
 
             # Creating input entries and labels
             host_label = tk.Label(
@@ -785,7 +764,7 @@ class Monopoly:
 
         # Retrieving data from MySQL
         self.cursor.execute(
-            "SELECT players FROM monopoly where save = %s", (self.save,)
+            "SELECT players FROM monopoly WHERE save = %s", (self.save,)
         )
         players_dict = json.loads(self.cursor.fetchall()[0][0])
 
@@ -806,6 +785,9 @@ class Monopoly:
                 prop["coords"] = tuple(prop["coords"])
                 prop["owned_by"] = player
 
+        self.order_label = tk.Label()
+        self.order_label.destroy()
+        self.load_game_screen.destroy()
         self.start_game()
 
     def delete_save(self):
@@ -836,22 +818,13 @@ class Monopoly:
             activeforeground="black",
             command=lambda: (
                 setattr(self, "pushing_sql", True),
+                self.load_game_screen.destroy(),
                 self.player_select_screen_display(),
             ),
         )
         self.select_button.place(relx=0.5, y=670, width=170, height=62, anchor="s")
 
     def player_select_screen_display(self):
-        # Destroy menu screen
-        try:
-            self.load_game_screen.destroy()
-        except AttributeError:
-            pass
-        try:
-            self.menu_screen.destroy()
-        except AttributeError:
-            pass
-
         # Show select screen
         self.select_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.select_screen.pack(fill="both", expand=True)
@@ -866,15 +839,15 @@ class Monopoly:
             self.select_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
         )
         title.place(relx=0.5, y=50, anchor="n")
-        exit_button = tk.Button(
+        back_button = tk.Button(
             self.select_screen,
             borderwidth=0,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             image=self.back_image,
-            command=self.menu_screen_display,
+            command=lambda: (self.select_screen.destroy(), self.menu_screen_display()),
         )
-        exit_button.place(x=25, y=25, anchor="nw")
+        back_button.place(x=25, y=25, anchor="nw")
         player_select = tk.Label(
             self.select_screen,
             borderwidth=0,
@@ -1005,12 +978,12 @@ class Monopoly:
             if self.player_2_entry.get() == ""
             else None,
         )
-        self.player_2_type = "npc"
+        self.player_2_type = "pc"
         self.player_2_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
             image=type_button_image,
-            text="NPC",
+            text="PC",
             compound="center",
             font=self.SMALL_FONT,
             bg=self.BG_DARK,
@@ -1076,12 +1049,12 @@ class Monopoly:
             if self.player_3_entry.get() == ""
             else None,
         )
-        self.player_3_type = "npc"
+        self.player_3_type = "pc"
         self.player_3_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
             image=type_button_image,
-            text="NPC",
+            text="PC",
             compound="center",
             font=self.SMALL_FONT,
             bg=self.BG_DARK,
@@ -1149,12 +1122,12 @@ class Monopoly:
             if self.player_4_entry.get() == ""
             else None,
         )
-        self.player_4_type = "npc"
+        self.player_4_type = "pc"
         self.player_4_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
             image=type_button_image,
-            text="NPC",
+            text="PC",
             compound="center",
             font=self.SMALL_FONT,
             bg=self.BG_DARK,
@@ -1242,11 +1215,11 @@ class Monopoly:
                 self.player_4_image_label.config(image=self.player_4_image)
 
     def change_type(self, player, num):
-        # Changes player type between human and npc
+        # Changes player type between human and pc
         if player["type"] == "human":
-            player["type"] = "npc"
-            getattr(self, f"player_{num}_type_button").config(text="NPC")
-            setattr(self, f"player_{num}_type", "npc")
+            player["type"] = "pc"
+            getattr(self, f"player_{num}_type_button").config(text="PC")
+            setattr(self, f"player_{num}_type", "pc")
         else:
             player["type"] = "human"
             getattr(self, f"player_{num}_type_button").config(text="HUMAN")
@@ -1277,10 +1250,6 @@ class Monopoly:
             )
             self.select_screen.destroy()
         except:
-            pass
-        try:
-            self.load_game_screen.destroy()
-        except AttributeError:
             pass
 
         # Restets player info if creating new game
@@ -1335,6 +1304,7 @@ class Monopoly:
             command=lambda: (
                 setattr(self, "pushing_sql", False),
                 setattr(self, "importing_sql", False),
+                self.screen.destroy(),
                 self.title_screen_display(),
             )
             if not self.order_label.winfo_exists()
@@ -1607,7 +1577,7 @@ class Monopoly:
             )
             self.order_label.place(x=360, y=145, anchor="n")
 
-            self.current_player = {"type": "npc"}
+            self.current_player = {"type": "pc"}
             self.play_order_list = itertools.cycle(
                 (self.player_2, self.player_3, self.player_4)
             )
@@ -1653,12 +1623,6 @@ class Monopoly:
         self.root.mainloop()
 
     def play_order(self, player):
-        try:
-            self.player_label.destroy(),
-            self.player_icon.destroy()
-        except AttributeError:
-            pass
-
         # Displays player info and dice button
         self.player_label = tk.Label(
             self.screen,
@@ -1690,6 +1654,8 @@ class Monopoly:
             self.root.after(
                 1750,
                 lambda: (
+                    self.player_label.destroy(),
+                    self.player_icon.destroy(),
                     self.dice_1_display.destroy(),
                     self.dice_2_display.destroy(),
                     self.play_order(next_player),
@@ -2089,7 +2055,7 @@ class Monopoly:
             else:
                 self.root.after(500, self.pay_fine)
 
-        if self.current_player["type"] == "npc":
+        if self.current_player["type"] == "pc":
             self.root.after(1500, self.end_turn_func)
 
     def end_turn_func(self):
