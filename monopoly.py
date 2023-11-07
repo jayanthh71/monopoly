@@ -16,7 +16,7 @@ class Monopoly:
         self.root = tk.Tk()
         self.root.geometry("1280x720")
         self.root.title("Monopoly")
-        self.root.iconbitmap(default=r"textures\logo.ico")
+        self.root.iconbitmap(default=r"assets\logo.ico")
         self.root.resizable(False, False)
 
         # Loading fonts
@@ -38,28 +38,28 @@ class Monopoly:
 
         # Creating token list
         self.tokens = [
-            r"textures\tokens\hat-token.png",
-            r"textures\tokens\car-token.png",
-            r"textures\tokens\ship-token.png",
-            r"textures\tokens\dog-token.png",
-            r"textures\tokens\iron-token.png",
-            r"textures\tokens\boot-token.png",
-            r"textures\tokens\thimble-token.png",
-            r"textures\tokens\cannon-token.png",
-            r"textures\tokens\wheelbarrow-token.png",
-            r"textures\tokens\horse-token.png",
+            r"assets\tokens\hat-token.png",
+            r"assets\tokens\car-token.png",
+            r"assets\tokens\ship-token.png",
+            r"assets\tokens\dog-token.png",
+            r"assets\tokens\iron-token.png",
+            r"assets\tokens\boot-token.png",
+            r"assets\tokens\thimble-token.png",
+            r"assets\tokens\cannon-token.png",
+            r"assets\tokens\wheelbarrow-token.png",
+            r"assets\tokens\horse-token.png",
         ]
         self.display_tokens = [
-            r"textures\tokens\hat.png",
-            r"textures\tokens\car.png",
-            r"textures\tokens\ship.png",
-            r"textures\tokens\dog.png",
-            r"textures\tokens\iron.png",
-            r"textures\tokens\boot.png",
-            r"textures\tokens\thimble.png",
-            r"textures\tokens\cannon.png",
-            r"textures\tokens\wheelbarrow.png",
-            r"textures\tokens\horse.png",
+            r"assets\tokens\hat.png",
+            r"assets\tokens\car.png",
+            r"assets\tokens\ship.png",
+            r"assets\tokens\dog.png",
+            r"assets\tokens\iron.png",
+            r"assets\tokens\boot.png",
+            r"assets\tokens\thimble.png",
+            r"assets\tokens\cannon.png",
+            r"assets\tokens\wheelbarrow.png",
+            r"assets\tokens\horse.png",
         ]
 
         # Defining player instances
@@ -98,6 +98,29 @@ class Monopoly:
         self.BG_LIGHT = "#B9CEB5"
         self.BG_BOARD = "#CCE3C7"
 
+        # Importing images
+        self.title_image = ImageTk.PhotoImage(file=r"assets\title.png")
+        self.background_image = ImageTk.PhotoImage(file=r"assets\background.jpg")
+        self.dark_bg = ImageTk.PhotoImage(file=r"assets\dark-bg.jpg")
+        self.exit_image = ImageTk.PhotoImage(file=r"assets\exit.png")
+        self.back_image = ImageTk.PhotoImage(file=r"assets\back.png")
+        self.close_button_image = ImageTk.PhotoImage(file=r"assets\close.png")
+        self.button_image = ImageTk.PhotoImage(file=r"assets\button.png")
+        self.big_button_image = ImageTk.PhotoImage(file=r"assets\big-button.png")
+        self.save_button = ImageTk.PhotoImage(file=r"assets\save.png")
+        self.select_save_img = ImageTk.PhotoImage(file=r"assets\selected-save.png")
+        self.right_image = ImageTk.PhotoImage(file=r"assets\right-arrow.png")
+        self.left_image = ImageTk.PhotoImage(file=r"assets\left-arrow.png")
+        self.type_button_image = ImageTk.PhotoImage(file=r"assets\type-button.png")
+        self.board_image = ImageTk.PhotoImage(file=r"assets\board.png")
+        self.dice_image = ImageTk.PhotoImage(file=r"assets\dice.png")
+        self.dice_1_image = ImageTk.PhotoImage(file=r"assets\dice-1.png")
+        self.dice_2_image = ImageTk.PhotoImage(file=r"assets\dice-2.png")
+        self.dice_3_image = ImageTk.PhotoImage(file=r"assets\dice-3.png")
+        self.dice_4_image = ImageTk.PhotoImage(file=r"assets\dice-4.png")
+        self.dice_5_image = ImageTk.PhotoImage(file=r"assets\dice-5.png")
+        self.dice_6_image = ImageTk.PhotoImage(file=r"assets\dice-6.png")
+
         # Setting default values
         self.pushing_sql = False
         self.importing_sql = False
@@ -107,22 +130,17 @@ class Monopoly:
         self.title_screen_display()
 
     def title_screen_display(self):
-        # Loading images
-        background_image = ImageTk.PhotoImage(file=r"textures\background.jpg")
-        dark_bg = ImageTk.PhotoImage(file=r"textures\dark-bg.jpg")
-        self.title_image = ImageTk.PhotoImage(file=r"textures\title.png")
-
         # Creating title screen
         self.title_screen = tk.Canvas(self.root, borderwidth=0)
         self.title_screen.pack(fill="both", expand=True)
 
         # Placing elements on title screen
-        self.title_screen.create_image(0, 0, image=background_image, anchor="nw")
+        self.title_screen.create_image(0, 0, image=self.background_image, anchor="nw")
         self.title_screen.create_image(640, 50, image=self.title_image, anchor="n")
         transparent_label = tk.Label(
             self.title_screen,
             borderwidth=0,
-            image=dark_bg,
+            image=self.dark_bg,
             text="PRESS ANY BUTTON TO START",
             font=self.BIG_FONT,
             fg="white",
@@ -140,12 +158,6 @@ class Monopoly:
         self.root.mainloop()
 
     def menu_screen_display(self):
-        # Loading images
-        self.exit_image = ImageTk.PhotoImage(file=r"textures\exit.png")
-        self.back_image = ImageTk.PhotoImage(file=r"textures\back.png")
-        self.button_image = ImageTk.PhotoImage(file=r"textures\button.png")
-        self.big_button_image = ImageTk.PhotoImage(file=r"textures\big-button.png")
-
         # Show menu screen
         self.menu_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.menu_screen.pack(fill="both", expand=True)
@@ -232,7 +244,6 @@ class Monopoly:
         # Show load game screen
         self.load_game_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.load_game_screen.pack(fill="both", expand=True)
-        self.save_button = ImageTk.PhotoImage(file=r"textures\save.png")
 
         # Creating elements on load game screen
         saves_select = tk.Label(
@@ -392,20 +403,18 @@ class Monopoly:
             self.save_2_button.config(text="2", image=self.save_button)
             self.save_3_button.config(text="3", image=self.save_button)
             self.save_4_button.config(text="4", image=self.save_button)
-
-            selected_save_image = ImageTk.PhotoImage(file=r"textures\selected-save.png")
             self.save = save
 
             # Indicating that current save has been selected
             match self.save:
                 case 1:
-                    self.save_1_button.config(text="", image=selected_save_image)
+                    self.save_1_button.config(text="", image=self.select_save_img)
                 case 2:
-                    self.save_2_button.config(text="", image=selected_save_image)
+                    self.save_2_button.config(text="", image=self.select_save_img)
                 case 3:
-                    self.save_3_button.config(text="", image=selected_save_image)
+                    self.save_3_button.config(text="", image=self.select_save_img)
                 case 4:
-                    self.save_4_button.config(text="", image=selected_save_image)
+                    self.save_4_button.config(text="", image=self.select_save_img)
 
             if self.save_exists():
                 # Displays select and delete button if save file exists
@@ -829,11 +838,6 @@ class Monopoly:
         self.select_screen = tk.Frame(self.root, bg=self.BG_DARK)
         self.select_screen.pack(fill="both", expand=True)
 
-        # Importing neccesary images
-        right_image = ImageTk.PhotoImage(file=r"textures\right-arrow.png")
-        left_image = ImageTk.PhotoImage(file=r"textures\left-arrow.png")
-        type_button_image = ImageTk.PhotoImage(file=r"textures\type-button.png")
-
         # Creating elements on select screen
         title = tk.Label(
             self.select_screen, image=self.title_image, borderwidth=0, bg=self.BG_DARK
@@ -914,7 +918,7 @@ class Monopoly:
         self.player_1_type_label = tk.Label(
             self.select_screen,
             borderwidth=0,
-            image=type_button_image,
+            image=self.type_button_image,
             text="HUMAN",
             compound="center",
             font=self.SMALL_FONT,
@@ -925,7 +929,7 @@ class Monopoly:
         player_1_left = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=left_image,
+            image=self.left_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.prev_token(1),
@@ -934,7 +938,7 @@ class Monopoly:
         player_1_right = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=right_image,
+            image=self.right_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.next_token(1),
@@ -982,7 +986,7 @@ class Monopoly:
         self.player_2_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=type_button_image,
+            image=self.type_button_image,
             text="PC",
             compound="center",
             font=self.SMALL_FONT,
@@ -996,7 +1000,7 @@ class Monopoly:
         player_2_left = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=left_image,
+            image=self.left_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.prev_token(2),
@@ -1005,7 +1009,7 @@ class Monopoly:
         player_2_right = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=right_image,
+            image=self.right_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.next_token(2),
@@ -1053,7 +1057,7 @@ class Monopoly:
         self.player_3_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=type_button_image,
+            image=self.type_button_image,
             text="PC",
             compound="center",
             font=self.SMALL_FONT,
@@ -1067,7 +1071,7 @@ class Monopoly:
         player_3_left = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=left_image,
+            image=self.left_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.prev_token(3),
@@ -1076,7 +1080,7 @@ class Monopoly:
         player_3_right = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=right_image,
+            image=self.right_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.next_token(3),
@@ -1126,7 +1130,7 @@ class Monopoly:
         self.player_4_type_button = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=type_button_image,
+            image=self.type_button_image,
             text="PC",
             compound="center",
             font=self.SMALL_FONT,
@@ -1140,7 +1144,7 @@ class Monopoly:
         player_4_left = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=left_image,
+            image=self.left_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.prev_token(4),
@@ -1149,7 +1153,7 @@ class Monopoly:
         player_4_right = tk.Button(
             self.select_screen,
             borderwidth=0,
-            image=right_image,
+            image=self.right_image,
             bg=self.BG_DARK,
             activebackground=self.BG_DARK,
             command=lambda: self.next_token(4),
@@ -1273,11 +1277,10 @@ class Monopoly:
         self.screen = tk.Frame(self.root, background="black")
         self.screen.pack(fill="both", expand=True)
 
-        # Importing and placing the board
-        board_image = ImageTk.PhotoImage(file=r"textures\board.png")
+        # Placing the board
         self.board = tk.Canvas(self.screen, borderwidth=0, highlightthickness=0)
         self.board.place(width=720, height=717, anchor="nw")
-        self.board.create_image(0, 0, image=board_image, anchor="nw")
+        self.board.create_image(0, 0, image=self.board_image, anchor="nw")
         self.board.bind("<Button-1>", self.display_property_info)
 
         button_background_image = ImageTk.PhotoImage(
@@ -1289,10 +1292,6 @@ class Monopoly:
             borderwidth=0,
         )
         button_background.place(relx=1, rely=0, anchor="ne")
-
-        # Loading some images
-        self.close_button_image = ImageTk.PhotoImage(file=r"textures\close.png")
-        self.dice_image = ImageTk.PhotoImage(file=r"textures\dice.png")
 
         # Creating exit button
         exit_button = tk.Button(
@@ -1312,14 +1311,6 @@ class Monopoly:
             else None,
         )
         exit_button.place(relx=1, anchor="ne")
-
-        # Loading dice images
-        self.dice_1_image = ImageTk.PhotoImage(file=r"textures\dice-1.png")
-        self.dice_2_image = ImageTk.PhotoImage(file=r"textures\dice-2.png")
-        self.dice_3_image = ImageTk.PhotoImage(file=r"textures\dice-3.png")
-        self.dice_4_image = ImageTk.PhotoImage(file=r"textures\dice-4.png")
-        self.dice_5_image = ImageTk.PhotoImage(file=r"textures\dice-5.png")
-        self.dice_6_image = ImageTk.PhotoImage(file=r"textures\dice-6.png")
 
         # Assigning tokens to players
         if not self.importing_sql:
