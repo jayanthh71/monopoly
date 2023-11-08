@@ -1614,7 +1614,7 @@ class Monopoly:
         self.root.mainloop()
 
     def play_order(self, player):
-        # Displays player info and dice button
+        # Displays player info
         self.player_label = tk.Label(
             self.screen,
             text=player["name"],
@@ -2369,6 +2369,24 @@ class Monopoly:
                 self.player_4,
             ]
 
+            # List of attributes to destroy
+            attributes_to_destroy = [
+                "current_player_landing",
+                "dice_1_display",
+                "dice_2_display",
+                "property_choice_display",
+                "action_display",
+                "card_display",
+                "salary_display",
+            ]
+
+            # Loop through the attributes and destroy them
+            for attribute in attributes_to_destroy:
+                try:
+                    getattr(self, attribute).destroy()
+                except AttributeError:
+                    pass
+
             # Finds winner
             final_player_list.remove(self.current_player)
             self.current_player["type"] = "human"
@@ -2384,24 +2402,52 @@ class Monopoly:
                 final_player_money_list.index(max(final_player_money_list))
             ]
 
-            # Displays winner
-            end_text = f"{self.current_player['name']} is bankrupt\n\n{winner['name']} won the game\n\nNet worth:\n\n"
+            # Displays loser
+            bankrupt_label = tk.Label(
+                self.screen,
+                text=f"{self.current_player['name']} is bankrupt",
+                borderwidth=0,
+                font=self.FONT,
+                bg=self.BG_BOARD,
+                fg="black",
+            )
+            bankrupt_label.place(x=360, y=145, anchor="n")
+
+            # Displays winner info
+            player_label = tk.Label(
+                self.screen,
+                text=f"{winner['name']} won the game",
+                borderwidth=0,
+                font=self.FONT,
+                bg=self.BG_BOARD,
+                fg="black",
+            )
+            player_label.place(x=360, y=250, anchor="s")
+            player_icon = tk.Label(
+                self.screen,
+                borderwidth=0,
+                bg=self.BG_BOARD,
+                image=winner["token_display_image"],
+            )
+            player_icon.place(x=360, y=275, anchor="n")
+
             sorted_player_list = sorted(
                 [self.player_1, self.player_2, self.player_3, self.player_4],
                 key=lambda player: player["money"],
                 reverse=True,
             )
-            for player in sorted_player_list:
-                end_text += f"{player['name']}: ${player['money']}\n"
-            end_screen = tk.Label(
+            end_text = "\n".join(
+                f"{player['name']}: ${player['money']}" for player in sorted_player_list
+            )
+            end_info = tk.Label(
                 self.screen,
                 text=end_text,
                 borderwidth=0,
-                font=self.SMALL_FONT,
-                bg=self.BG_LIGHT,
+                font=self.FONT,
+                bg=self.BG_BOARD,
                 fg="black",
             )
-            end_screen.place(height=280, width=250, x=360, y=360, anchor="center")
+            end_info.place(x=360, y=575, anchor="s")
             return True
         else:
             self.update_money()
