@@ -1274,7 +1274,7 @@ class Monopoly:
                 player["turn"] = False
 
         # Creating game screen
-        self.screen = tk.Frame(self.root, background="black")
+        self.screen = tk.Frame(self.root, background=self.BG_DARK)
         self.screen.pack(fill="both", expand=True)
 
         # Placing the board
