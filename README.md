@@ -1,14 +1,14 @@
-# Game Overview
+# Overview
 
-Monopoly game in Python using tkinter and pillow for a school project :D
+Monopoly game implementation in Python made for a school project :)
 
-Has most of the features but missing some like property trading, houses and mortgages
+- It has most of the features of the original Monopoly combined with some modifications inspired by Monopoly Cheater's Edition.
 
-Modified some rules like jail and the property rent system
+- Has MySQL integration to save upto 4 game instances for later use.
 
-Ability to create save files using MySQL
+- Can be played with upto 4 people, can be played against PC as well.
 
-Can be played against PC also
+- Missing features include property trading, hotels and mortgages (Might get added in a future update).
 
 # Dependencies
 
@@ -16,14 +16,36 @@ Can be played against PC also
 - [tkextrafont](https://github.com/TkinterEP/python-tkextrafont)
 - [mysql-connector-python](https://github.com/mysql/mysql-connector-python)
 
-# Images
+# Installation
 
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/f13f7425-c6a3-4100-bac6-6cdc60e28352">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/b26f5466-2c4f-40d0-b307-21b6d3a4a654">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/9df8e66d-3223-443a-848c-433d17ab8e45">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/8f8eef57-5458-4a1a-9dc0-d394247112a7">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/63563d05-2e75-4cc2-b287-8e699dcb13da">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/afb37420-f0b6-41f3-a262-df527bb1bf79">
-<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/61f5ec2c-16b6-48a5-b6c8-1fc71f10e914">
+**1. Clone the repository**:
 
-enjoy playing :)))
+```sh
+git clone https://github.com/jayanthh71/monopoly.git
+cd monopoly
+```
+
+**2. Install dependencies and run:**
+
+```sh
+pip install -r requirements.txt
+python monopoly.py
+```
+
+# Gallery
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/7d12db70-5008-48fa-8c30-8fdfac483c6a">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/a7dd6576-78a2-43ef-b0f3-f047a48210e0">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/922f149d-b938-4f14-85a1-9f782437fb77">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/5ee93059-9ac0-4d5b-8179-060f4db75624">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/e2c705cd-ee6e-4f77-8f48-516c59284c82">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/e13eeb38-0ffe-4307-9db3-2a17753b571a">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/60e1a09f-e1f4-4fb0-a595-ff49731fab80">
+
+<img width="642" alt="image" src="https://github.com/jayanthh71/monopoly/assets/134786265/0853a140-e043-4fa0-9554-c75fd9469460">
