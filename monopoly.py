@@ -2436,7 +2436,8 @@ class Monopoly:
                 key=lambda player: player["money"],
                 reverse=True,
             )
-            end_text = "\n".join(
+            end_text = "Net worths:\n\n"
+            end_text += "\n".join(
                 f"{player['name']}: ${player['money']}" for player in sorted_player_list
             )
             end_info = tk.Label(
@@ -2447,7 +2448,20 @@ class Monopoly:
                 bg=self.BG_BOARD,
                 fg="black",
             )
-            end_info.place(x=360, y=575, anchor="s")
+            end_info.place(x=360, y=600, anchor="s")
+
+            if self.pushing_sql:
+                # Deleting the player json in MySQL
+                self.cursor.execute(
+                    "UPDATE monopoly SET players = %s WHERE save = %s",
+                    ("{}", self.save),
+                )
+                self.db.commit()
+
+                # Resetting values
+                self.importing_sql = False
+                self.pushing_sql = False
+
             return True
         else:
             self.update_money()
