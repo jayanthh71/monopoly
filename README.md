@@ -16,16 +16,7 @@ Monopoly game implementation in Python made for a school project :)
 - [tkextrafont](https://github.com/TkinterEP/python-tkextrafont)
 - [mysql-connector-python](https://github.com/mysql/mysql-connector-python)
 
-# Installation
-
-**1. Clone the repository**:
-
-```sh
-git clone https://github.com/jayanthh71/monopoly.git
-cd monopoly
-```
-
-**2. Install dependencies and run:**
+# Running
 
 ```sh
 pip install -r requirements.txt
