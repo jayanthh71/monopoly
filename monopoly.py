@@ -679,14 +679,13 @@ class Monopoly:
             self.db = mysql.connect(**self.connect_info)
             self.cursor = self.db.cursor()
 
-            # Creates monopoly table and inserts valyes
+            # Creates monopoly table and inserts values
             self.cursor.execute(
                 "CREATE TABLE IF NOT EXISTS monopoly (save INT PRIMARY KEY, players JSON)"
             )
 
-            self.cursor.executemany(
-                "INSERT IGNORE INTO monopoly (save, players) VALUES (%s, %s)",
-                [(1, "{}"), (2, "{}"), (3, "{}"), (4, "{}")],
+            self.cursor.execute(
+                "INSERT IGNORE INTO monopoly (save, players) VALUES (1, '{}'), (2, '{}'), (3, '{}'), (4, '{}')"
             )
             self.db.commit()
 
@@ -802,8 +801,8 @@ class Monopoly:
     def delete_save(self):
         # Deleting the player json in MySQL
         self.cursor.execute(
-            "UPDATE monopoly SET players = %s WHERE save = %s",
-            ("{}", self.save),
+            "UPDATE monopoly SET players = '{}' WHERE save = %s",
+            (self.save,),
         )
         self.db.commit()
 
