@@ -205,7 +205,7 @@ class Monopoly:
                 setattr(self, "importing_sql", False),
                 setattr(self, "pushing_sql", False),
                 self.menu_screen.destroy(),
-                self.player_select_screen_display(),
+                self.save_location_display(),
             ),
         )
         new_game_button.place(relx=0.5, y=340, anchor="center")
@@ -238,8 +238,88 @@ class Monopoly:
         )
         connect_button.place(relx=0.5, y=540, anchor="center")
 
-    def load_game_screen_display(self):
+    def save_location_display(self):
         self.menu_screen.destroy()
+
+        # Show save location screen
+        self.save_location_screen = tk.Frame(self.root, bg=self.BG_DARK)
+        self.save_location_screen.pack(fill="both", expand=True)
+
+        # Creating elements on load game screen
+        saves_select = tk.Label(
+            self.save_location_screen,
+            borderwidth=0,
+            font=self.BIG_FONT,
+            text="Save Location",
+            bg=self.BG_DARK,
+            fg=self.FG_WHITE,
+        )
+        saves_select.place(relx=0.5, y=162.5, height=53, anchor="n")
+        back_button = tk.Button(
+            self.save_location_screen,
+            borderwidth=0,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            image=self.back_image,
+            command=lambda: (
+                self.save_location_screen.destroy(),
+                self.menu_screen_display(),
+            ),
+        )
+        back_button.place(x=25, y=25, anchor="nw")
+        title = tk.Label(
+            self.save_location_screen,
+            image=self.title_image,
+            borderwidth=0,
+            bg=self.BG_DARK,
+        )
+        title.place(relx=0.5, y=50, anchor="n")
+
+        # Creating buttons
+        local_save_button = tk.Button(
+            self.save_location_screen,
+            borderwidth=0,
+            text="LOCAL SAVE",
+            font=self.BIG_FONT,
+            compound="center",
+            image=self.big_button_image,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            fg="black",
+            activeforeground="black",
+            command=self.load_game_screen_display,
+        )
+        local_save_button.place(relx=0.5, y=377.5, anchor="center")
+        new_game_button = tk.Button(
+            self.save_location_screen,
+            borderwidth=0,
+            text="DON'T SAVE",
+            font=self.BIG_FONT,
+            compound="center",
+            image=self.big_button_image,
+            bg=self.BG_DARK,
+            activebackground=self.BG_DARK,
+            fg="black",
+            activeforeground="black",
+            command=lambda: (
+                setattr(self, "save", None),
+                setattr(self, "importing_sql", False),
+                setattr(self, "pushing_sql", False),
+                self.save_location_screen.destroy(),
+                self.player_select_screen_display(),
+            ),
+        )
+        new_game_button.place(relx=0.5, y=503.5, anchor="center")
+
+    def load_game_screen_display(self):
+        try:
+            self.menu_screen.destroy()
+        except AttributeError:
+            pass
+        try:
+            self.save_location_screen.destroy()
+        except AttributeError:
+            pass
 
         # Show load game screen
         self.load_game_screen = tk.Frame(self.root, bg=self.BG_DARK)
@@ -250,7 +330,7 @@ class Monopoly:
             self.load_game_screen,
             borderwidth=0,
             font=self.BIG_FONT,
-            text="Load Game",
+            text="Select Save",
             bg=self.BG_DARK,
             fg=self.FG_WHITE,
         )
