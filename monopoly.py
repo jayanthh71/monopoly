@@ -609,6 +609,7 @@ class Monopoly:
                 activeforeground="black",
                 command=lambda: (
                     setattr(self, "is_connected_sql", False),
+                    self.db.close(),
                     self.connect_screen.destroy(),
                     self.connect_sql_screen_display(),
                 ),
