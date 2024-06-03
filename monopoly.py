@@ -979,20 +979,24 @@ class Monopoly:
         self.player_1_entry.bind(
             "<FocusIn>",
             lambda _: (
-                self.player_1_entry.delete(0, tk.END),
-                self.player_1_entry.configure(fg="black"),
-            )
-            if self.player_1_entry.get() == "Player 1"
-            else None,
+                (
+                    self.player_1_entry.delete(0, tk.END),
+                    self.player_1_entry.configure(fg="black"),
+                )
+                if self.player_1_entry.get() == "Player 1"
+                else None
+            ),
         )
         self.player_1_entry.bind(
             "<FocusOut>",
             lambda _: (
-                self.player_1_entry.insert(0, "Player 1"),
-                self.player_1_entry.configure(fg="grey"),
-            )
-            if self.player_1_entry.get() == ""
-            else None,
+                (
+                    self.player_1_entry.insert(0, "Player 1"),
+                    self.player_1_entry.configure(fg="grey"),
+                )
+                if self.player_1_entry.get() == ""
+                else None
+            ),
         )
         self.player_1_type = "human"
         self.player_1_type_label = tk.Label(
@@ -1047,20 +1051,24 @@ class Monopoly:
         self.player_2_entry.bind(
             "<FocusIn>",
             lambda _: (
-                self.player_2_entry.delete(0, tk.END),
-                self.player_2_entry.configure(fg="black"),
-            )
-            if self.player_2_entry.get() == "Player 2"
-            else None,
+                (
+                    self.player_2_entry.delete(0, tk.END),
+                    self.player_2_entry.configure(fg="black"),
+                )
+                if self.player_2_entry.get() == "Player 2"
+                else None
+            ),
         )
         self.player_2_entry.bind(
             "<FocusOut>",
             lambda _: (
-                self.player_2_entry.insert(0, "Player 2"),
-                self.player_2_entry.configure(fg="grey"),
-            )
-            if self.player_2_entry.get() == ""
-            else None,
+                (
+                    self.player_2_entry.insert(0, "Player 2"),
+                    self.player_2_entry.configure(fg="grey"),
+                )
+                if self.player_2_entry.get() == ""
+                else None
+            ),
         )
         self.player_2_type = "pc"
         self.player_2_type_button = tk.Button(
@@ -1118,20 +1126,24 @@ class Monopoly:
         self.player_3_entry.bind(
             "<FocusIn>",
             lambda _: (
-                self.player_3_entry.delete(0, tk.END),
-                self.player_3_entry.configure(fg="black"),
-            )
-            if self.player_3_entry.get() == "Player 3"
-            else None,
+                (
+                    self.player_3_entry.delete(0, tk.END),
+                    self.player_3_entry.configure(fg="black"),
+                )
+                if self.player_3_entry.get() == "Player 3"
+                else None
+            ),
         )
         self.player_3_entry.bind(
             "<FocusOut>",
             lambda _: (
-                self.player_3_entry.insert(0, "Player 3"),
-                self.player_3_entry.configure(fg="grey"),
-            )
-            if self.player_3_entry.get() == ""
-            else None,
+                (
+                    self.player_3_entry.insert(0, "Player 3"),
+                    self.player_3_entry.configure(fg="grey"),
+                )
+                if self.player_3_entry.get() == ""
+                else None
+            ),
         )
         self.player_3_type = "pc"
         self.player_3_type_button = tk.Button(
@@ -1191,20 +1203,24 @@ class Monopoly:
         self.player_4_entry.bind(
             "<FocusIn>",
             lambda _: (
-                self.player_4_entry.delete(0, tk.END),
-                self.player_4_entry.configure(fg="black"),
-            )
-            if self.player_4_entry.get() == "Player 4"
-            else None,
+                (
+                    self.player_4_entry.delete(0, tk.END),
+                    self.player_4_entry.configure(fg="black"),
+                )
+                if self.player_4_entry.get() == "Player 4"
+                else None
+            ),
         )
         self.player_4_entry.bind(
             "<FocusOut>",
             lambda _: (
-                self.player_4_entry.insert(0, "Player 4"),
-                self.player_4_entry.configure(fg="grey"),
-            )
-            if self.player_4_entry.get() == ""
-            else None,
+                (
+                    self.player_4_entry.insert(0, "Player 4"),
+                    self.player_4_entry.configure(fg="grey"),
+                )
+                if self.player_4_entry.get() == ""
+                else None
+            ),
         )
         self.player_4_type = "pc"
         self.player_4_type_button = tk.Button(
@@ -1381,14 +1397,16 @@ class Monopoly:
             activebackground=self.BG_DARK,
             image=self.exit_image,
             command=lambda: (
-                setattr(self, "pushing_sql", False),
-                setattr(self, "importing_sql", False),
-                self.screen.destroy(),
-                self.title_screen_display(),
-            )
-            if not self.order_label.winfo_exists()
-            and self.current_player["type"] == "human"
-            else None,
+                (
+                    setattr(self, "pushing_sql", False),
+                    setattr(self, "importing_sql", False),
+                    self.screen.destroy(),
+                    self.title_screen_display(),
+                )
+                if not self.order_label.winfo_exists()
+                and self.current_player["type"] == "human"
+                else None
+            ),
         )
         exit_button.place(relx=1, anchor="ne")
 
@@ -1438,9 +1456,9 @@ class Monopoly:
         with open("properties.csv", "r", newline="") as file:
             for property_info in csv.reader(file):
                 property_instance = {"owned_by": None}
-                self.property_locations[
-                    next(property_locations_list)
-                ] = property_instance
+                self.property_locations[next(property_locations_list)] = (
+                    property_instance
+                )
                 property_instance["name"] = property_info[0]
                 property_instance["price"] = int(property_info[1])
                 property_instance["colour"] = property_info[2]
