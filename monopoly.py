@@ -3,10 +3,11 @@ import itertools  # To create player loop
 import json  # To convert dictionary to json for MySQL
 import random  # For dice rolling
 import tkinter as tk  # To create Graphical User Interface
-from ctypes import windll  # To get HD Graphical User Interface
 
-import mysql.connector as mysql  # For MySQL Connectivity
-import tkextrafont  # To use custom fonts
+# from ctypes import windll  # To get HD Graphical User Interface
+
+# import mysql.connector as mysql  # For MySQL Connectivity
+# import tkextrafont  # To use custom fonts
 from PIL import Image, ImageTk  # To import and create images
 
 
@@ -15,51 +16,39 @@ class Monopoly:
         # Creating the Graphical User Interface
         self.root = tk.Tk()
         self.root.geometry("1280x720")
-        self.root.title("Monopoly")
-        self.root.iconbitmap(default=r"assets\logo.ico")
+        # self.root.title("Monopoly")
+        # self.root.iconbitmap(default=r"assets/logo.ico")
         self.root.resizable(False, False)
 
         # Loading fonts
-        self.BIG_FONT = tkextrafont.Font(
-            file=r"fonts\big-font.ttf",
-            family="Kabel Bd",
-            size=20,
-        )
-        self.FONT = tkextrafont.Font(
-            file=r"fonts\font.ttf",
-            family="Kabel Bd",
-            size=18,
-        )
-        self.SMALL_FONT = tkextrafont.Font(
-            file=r"fonts\small-font.ttf",
-            family="Kabel Bd",
-            size=12,
-        )
+        self.BIG_FONT = {}
+        self.FONT = {}
+        self.SMALL_FONT = {}
 
         # Creating token list
         self.tokens = [
-            r"assets\tokens\hat-token.png",
-            r"assets\tokens\car-token.png",
-            r"assets\tokens\ship-token.png",
-            r"assets\tokens\dog-token.png",
-            r"assets\tokens\iron-token.png",
-            r"assets\tokens\boot-token.png",
-            r"assets\tokens\thimble-token.png",
-            r"assets\tokens\cannon-token.png",
-            r"assets\tokens\wheelbarrow-token.png",
-            r"assets\tokens\horse-token.png",
+            r"assets/tokens/hat-token.png",
+            r"assets/tokens/car-token.png",
+            r"assets/tokens/ship-token.png",
+            r"assets/tokens/dog-token.png",
+            r"assets/tokens/iron-token.png",
+            r"assets/tokens/boot-token.png",
+            r"assets/tokens/thimble-token.png",
+            r"assets/tokens/cannon-token.png",
+            r"assets/tokens/wheelbarrow-token.png",
+            r"assets/tokens/horse-token.png",
         ]
         self.display_tokens = [
-            r"assets\tokens\hat.png",
-            r"assets\tokens\car.png",
-            r"assets\tokens\ship.png",
-            r"assets\tokens\dog.png",
-            r"assets\tokens\iron.png",
-            r"assets\tokens\boot.png",
-            r"assets\tokens\thimble.png",
-            r"assets\tokens\cannon.png",
-            r"assets\tokens\wheelbarrow.png",
-            r"assets\tokens\horse.png",
+            r"assets/tokens/hat.png",
+            r"assets/tokens/car.png",
+            r"assets/tokens/ship.png",
+            r"assets/tokens/dog.png",
+            r"assets/tokens/iron.png",
+            r"assets/tokens/boot.png",
+            r"assets/tokens/thimble.png",
+            r"assets/tokens/cannon.png",
+            r"assets/tokens/wheelbarrow.png",
+            r"assets/tokens/horse.png",
         ]
 
         # Defining player instances
@@ -99,34 +88,34 @@ class Monopoly:
         self.BG_BOARD = "#CCE3C7"
 
         # Importing images
-        self.title_image = ImageTk.PhotoImage(file=r"assets\title.png")
-        self.background_image = ImageTk.PhotoImage(file=r"assets\background.jpg")
-        self.dark_bg = ImageTk.PhotoImage(file=r"assets\dark-bg.jpg")
-        self.exit_image = ImageTk.PhotoImage(file=r"assets\exit.png")
-        self.back_image = ImageTk.PhotoImage(file=r"assets\back.png")
-        self.close_button_image = ImageTk.PhotoImage(file=r"assets\close.png")
-        self.button_image = ImageTk.PhotoImage(file=r"assets\button.png")
-        self.big_button_image = ImageTk.PhotoImage(file=r"assets\big-button.png")
-        self.save_button = ImageTk.PhotoImage(file=r"assets\save.png")
-        self.select_save_img = ImageTk.PhotoImage(file=r"assets\selected-save.png")
-        self.right_image = ImageTk.PhotoImage(file=r"assets\right-arrow.png")
-        self.left_image = ImageTk.PhotoImage(file=r"assets\left-arrow.png")
-        self.type_button_image = ImageTk.PhotoImage(file=r"assets\type-button.png")
-        self.board_image = ImageTk.PhotoImage(file=r"assets\board.png")
-        self.dice_image = ImageTk.PhotoImage(file=r"assets\dice.png")
-        self.dice_1_image = ImageTk.PhotoImage(file=r"assets\dice-1.png")
-        self.dice_2_image = ImageTk.PhotoImage(file=r"assets\dice-2.png")
-        self.dice_3_image = ImageTk.PhotoImage(file=r"assets\dice-3.png")
-        self.dice_4_image = ImageTk.PhotoImage(file=r"assets\dice-4.png")
-        self.dice_5_image = ImageTk.PhotoImage(file=r"assets\dice-5.png")
-        self.dice_6_image = ImageTk.PhotoImage(file=r"assets\dice-6.png")
+        self.title_image = ImageTk.PhotoImage(file=r"assets/title.png")
+        self.background_image = ImageTk.PhotoImage(file=r"assets/background.jpg")
+        self.dark_bg = ImageTk.PhotoImage(file=r"assets/dark-bg.jpg")
+        self.exit_image = ImageTk.PhotoImage(file=r"assets/exit.png")
+        self.back_image = ImageTk.PhotoImage(file=r"assets/back.png")
+        self.close_button_image = ImageTk.PhotoImage(file=r"assets/close.png")
+        self.button_image = ImageTk.PhotoImage(file=r"assets/button.png")
+        self.big_button_image = ImageTk.PhotoImage(file=r"assets/big-button.png")
+        self.save_button = ImageTk.PhotoImage(file=r"assets/save.png")
+        self.select_save_img = ImageTk.PhotoImage(file=r"assets/selected-save.png")
+        self.right_image = ImageTk.PhotoImage(file=r"assets/right-arrow.png")
+        self.left_image = ImageTk.PhotoImage(file=r"assets/left-arrow.png")
+        self.type_button_image = ImageTk.PhotoImage(file=r"assets/type-button.png")
+        self.board_image = ImageTk.PhotoImage(file=r"assets/board.png")
+        self.dice_image = ImageTk.PhotoImage(file=r"assets/dice.png")
+        self.dice_1_image = ImageTk.PhotoImage(file=r"assets/dice-1.png")
+        self.dice_2_image = ImageTk.PhotoImage(file=r"assets/dice-2.png")
+        self.dice_3_image = ImageTk.PhotoImage(file=r"assets/dice-3.png")
+        self.dice_4_image = ImageTk.PhotoImage(file=r"assets/dice-4.png")
+        self.dice_5_image = ImageTk.PhotoImage(file=r"assets/dice-5.png")
+        self.dice_6_image = ImageTk.PhotoImage(file=r"assets/dice-6.png")
 
         # Setting default values
         self.pushing_sql = False
         self.importing_sql = False
         self.is_connected_sql = False
 
-        windll.shcore.SetProcessDpiAwareness(2)
+        # windll.shcore.SetProcessDpiAwareness(2)
         self.title_screen_display()
 
     def title_screen_display(self):
